@@ -1,4 +1,4 @@
-# Analysis of the genetics underlying the hybrid effect variation in a Eurasian pig cross
+# Analysis of genetics underlying the hybrid effect variation in a Eurasian pig cross
 Analysis carried out by Hai-Bing Xie (xiehb@mail.kiz.ac.cn), Zi-Qin Huang, Li-Gang Wang, and Long-Chao Zhang in consultation with Ya-Ping Zhang, Chung-I Wu and Li-Xian Wang.
 
 # Overview
@@ -52,7 +52,7 @@ For details, please see the implementation of the three R functions.
 
 The genomic transmission for all SNPs were generated in the f2.inheritance.txt file with the following format:
 ```
-f2	chromosome	position	paternal_allele	maternal allele
+f2	chromosome	position	paternal_allele	maternal_allele
 1007207	2	137549863	5	11
 1007207	2	137553655	5	11
 1007207	2	137591602	5	11
@@ -68,6 +68,9 @@ f2	chromosome	position	paternal_allele	maternal allele
 1007207	2	138137424	5	12 
 ```
 There is a recombination event detected in the maternal chromosome 2 of the F2 (id 1007207) between two SNPs (coordinates:137892857 and 137978735). The fifth and sixth columns indicates the F0 alleles in the F2 genomes as described above (*5*: LW allele, *11*: LW allele, and *12*: MIN allele). 
+
+To reduce the complexity in the following analysis on hybrid effects, the f2.inheritance.txt was saved to a MySQL server, all the subsequent analysis was based on the saved tables.
+
 
 
 ## 4. Hybrid effect analysis
