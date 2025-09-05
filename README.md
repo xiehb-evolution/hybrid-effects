@@ -69,8 +69,8 @@ f2	chromosome	position	paternal_allele	maternal_allele
 ```
 There is a recombination event detected in the maternal chromosome 2 of the F2 (id 1007207) between two SNPs (coordinates:137892857 and 137978735). The fifth and sixth columns indicates the F0 alleles in the F2 genomes as described above (*5*: LW allele, *11*: LW allele, and *12*: MIN allele). 
 
-The following two figures show the inheritance of F0 founder alleles in two F2 individuals (930805 and 930806).
-![boxplot1](tmp/chr5.930805.png)    ![boxplot2](tmp/chr5.930806.png)
+The following two figures show the inheritance of F0 founder alleles in a F2 individual (930806).
+![boxplot1](tmp/chr5.930806.png)
 
 To reduce the complexity in the following analysis on hybrid effects, the f2.inheritance.txt was saved to a MySQL server, all the subsequent analysis was based on the saved tables.
 
