@@ -7,36 +7,21 @@ All the F2 individuals were raised without any directional selection imposed by 
 
 ```
 
-f2	family	trait\_id	trait\_name	trait\_value
-
+f2	family	trait_id	trait_name	trait_value
 1008004	10080	67	IMF	1.07
-
 1008908	10089	67	IMF	2.48
-
 1008001	10080	67	IMF	1.53
-
 1008905	10089	67	IMF	1.87
-
 1008902	10089	67	IMF	1.13
-
 1008003	10080	67	IMF	3.13
-
 932304	9323	67	IMF	1.4
-
 932302	9323	67	IMF	2.47
-
 932403	9324	67	IMF	2.81
-
 932412	9324	67	IMF	2.9
-
 931809	9318	67	IMF	2.16
-
 932307	9323	67	IMF	6.31
-
 932306	9323	67	IMF	3.4
-
 932408	9324	67	IMF	2.28
-
 ```
 
 ## 2. Genotyping and phasing
