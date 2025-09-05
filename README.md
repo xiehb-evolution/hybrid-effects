@@ -1,12 +1,12 @@
 # Analysis of the genetics underlying the hybrid effect variation in a Eurasian pig cross
-Analysis carried out by Hai-Bing Xie (xiehb@mail.kiz.ac.cn) in consultation with Ya-Ping Zhang, Chung-I Wu and Li-Xian Wang.
+Analysis carried out by Hai-Bing Xie (xiehb@mail.kiz.ac.cn), Zi-Qin Huang, Li-Gang Wang, and Long-Chao Zhang in consultation with Ya-Ping Zhang, Chung-I Wu and Li-Xian Wang.
 
 # Overview
 
 This provides the data and scripts to explore the genetics underlying hybrid effect variation in a F2 population of the pig (*Sus scrofa*). The F2 was developed from a cross between the European Large White (LW) boars and East Asian Min (MIN) sows.
 
 ## 1. The phenotypic data for the LW-MIN F2 population
-All the F2 individuals were raised without any directional selection imposed by humans, and the phenotypes of the F2 are expected to vary with the segregation of the LW and MIN alleles in the F2 population. A total of 135 traits were collected in the F2 population, and most of them were collected at 240 days after birth. The raw phenotypic data was supplied in CSV format with a filename of “f2_trait_name_trait_value.csv”. The file contains five columns, indicating the sample id ("f2"), family id ("family"), an assigned number of a trait ("trait_id"), the abbreviation of the traits name ("trait_name"), and the value of the trait ("trait_value"). The male sex is given with odd numbers of sample id and female sex with even numbers. The following show an example for the intramuscular fat content (IMF) trait for a subset of the F2 samples.
+All the F2 individuals were raised without any directional selection imposed by humans, and the phenotypes of the F2 are expected to vary with the segregation of the LW and MIN alleles in the F2 population. A total of 135 traits were collected in the F2 population, and most of them were collected at 240 days after birth. The raw phenotypic data was supplied in CSV format with a filename of “f2_trait_name_trait_value.csv”. The file contains five columns, indicating the sample id ("f2"), family id ("family"), an assigned number of a trait ("trait_id"), the abbreviation of the traits name ("trait_name"), and the value of the trait ("trait_value"). The male sex is given with odd numbers of sample id and female sex with even numbers. The following shows an example of the intramuscular fat content (IMF) trait for a subset of the F2 samples.
 
 ```
 f2	family	trait_id	trait_name	trait_value
@@ -42,7 +42,7 @@ done
 
 
 ## 3. Transmission analysis and recombination breakpoint identification
-We prepared a R script (with a filename of "1.determination of recombination breakpoints and allelic transmission.R") to determine the genomic transmission from F1 to F2 and the inheritance of LW or MIN alleles in the paternal and maternal genomes of each F2. The analysis was performed on 100-kb autosomal windows.
+We prepared a R script (with a filename of "1.determination of recombination breakpoints and allelic transmission.R") to determine the genomic transmission from F1 to F2 and the inheritance of LW or MIN alleles in the paternal and maternal genomes of each F2. 
 
 We applied several steps to determine the genomic transmission in the LW-MIN family. First, the phased data produced by the shapeit software were loaded into a dataframe in  the R. To reduce the computation complexity, the haplotype data of four grandparents and two parents for each F2 were extracted for analysis. Second, a combination of R functions *GetScore*, *StepHap*, and *correcting_haplotype* were prepared to determine the genomic transmission across generations, especially from F1 to F2. In the LW-MIN family,  the F1 is always heterozygous (paternal/maternal as LW/MIN). In F1 males, the paternal chromosome (LW) was assigned with a number of *5*, and maternal chromosome (MIN) with a number of *6*. The numbers do not indiciate the chromosomes 5 and 6, but show the allele origin in the F0-F1-F2 transmission. In F1 females, the paternal and maternal chromosomes were assigned to *11* and *12*. For the F2 offspring, the paternal and maternal chromosomes  were assigned *3* and *4*, respectively. Therefore, the *3* was identical to *5* or *6* if no recombination events was involved in the paternal genome, or a mosaic chromosome with both *5* and *6*. A similar case is for *4* represented by the *11* and *12*.
 
@@ -50,6 +50,28 @@ The  *5*, *6*, *11*, and *12* were designed to indicate the inheritance of LW (o
 
 For details, please see the implementation of the three R functions.
 
+The genomic transmission for all SNPs were generated in the f2.inheritance.txt file with the following format:
+```
+f2	chromosome	position	paternal_allele	maternal allele
+1007207	2	137549863	5	11
+1007207	2	137553655	5	11
+1007207	2	137591602	5	11
+1007207	2	137601377	5	11
+1007207	2	137609824	5	11
+1007207	2	137650460	5	11
+1007207	2	137892857	5	11
+1007207	2	137978735	5	12
+1007207	2	138011068	5	12
+1007207	2	138014980	5	12
+1007207	2	138048646	5	12
+1007207	2	138066066	5	12
+1007207	2	138137424	5	12 
+```
+There is a recombination event detected in the maternal chromosome 2 of the F2 (id 1007207) between two SNPs (coordinates:137892857 and 137978735). The fifth and sixth columns indicates the F0 alleles in the F1 as described above (*5*: LW allele, *11*: LW allele, and *12*: MIN allele). 
+
 
 ## 4. Hybrid effect analysis
+The hybrid effect is defined as the phenotypic difference between the homozygous (LW/LW or MIN/MIN) and heterozygous (LW/MIN or MIN/LW) genotypes. For each 100-kb window, four homozygote-heterozygote combinations were included. For all the 135 traits, the calcualted homozygote-heterozygote difference was scaled to the phenotypic mean of each sex, which makes the hybrid effects comparable across different traits.
+
+
 
