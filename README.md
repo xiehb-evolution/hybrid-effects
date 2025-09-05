@@ -69,7 +69,7 @@ f2	chromosome	position	paternal_allele	maternal_allele
 ```
 There is a recombination event detected in the maternal chromosome 2 of the F2 (id 1007207) between two SNPs (coordinates:137892857 and 137978735). The fifth and sixth columns indicates the F0 alleles in the F2 genomes as described above (*5*: LW allele, *11*: LW allele, and *12*: MIN allele). 
 
-The following figure shows the inheritance of alleles in a F2 individual (930806). The red and blue colors indicate the LW and MIN alleles, respectively. The recombination breakpoints are indicated by boundaries of red and blue color switches either in the paternal and maternal genomes.
+The following figure shows the inheritance of alleles in a F2 individual (930806). The red and blue colors indicate the LW and MIN alleles, respectively. The recombination breakpoints are indicated by the boundary SNPs at red-blue color switches in the paternal and maternal genomes.
 
 ![boxplot1](tmp/chr5.930806.png)
 
