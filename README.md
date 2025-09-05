@@ -25,7 +25,8 @@ f2	family	trait_id	trait_name	trait_value
 
 ## 2. Phasing
 For all the F0, F1, and F2, the genomes were determined using the Illumina SNP60 BeadChip. The genomic data is available in the file "sscrofa11.data.zip".
-We performed the haplotype inference for the whole LW-MIN family using the  Shapeit software.
+
+We performed the haplotype inference for the whole LW-MIN family using the  shapeit software.
 
 ```
 for i in `seq 1 18`
