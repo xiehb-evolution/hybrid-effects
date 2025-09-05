@@ -1,3 +1,6 @@
+#Analysis of the genetics underlying the hybrid effect variation in a Eurasian pig cross
+Analysis carried out by Hai-Bing Xie (xiehb@mail.kiz.ac.cn) in consultation with Ya-Ping Zhang, Chung-I Wu and Li-Xian Wang.
+
 # Overview
 
 This provides the data and scripts to explore the genetics underlying hybrid effect variation in a F2 population of the pig (*Sus scrofa*). The F2 was developed from a cross between the European Large White (LW) boars and East Asian Min (MIN) sows.
