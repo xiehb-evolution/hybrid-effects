@@ -35,7 +35,7 @@ for i in `seq 1 18`
 
 do
 
-&nbsp;	shapeit -T 10 -P chr$i.ped chr$i.map --duohmm -W 15 --output-max chr$i.phased.duohmm --output-graph chr$i.phased.duohmm.graph --force
+	shapeit -T 10 -P chr$i.ped chr$i.map --duohmm -W 15 --output-max chr$i.phased.duohmm --output-graph chr$i.phased.duohmm.graph --force
 
 done
 
@@ -51,4 +51,4 @@ We applied several steps to determine the genomic transmission in the LW-MIN fam
 
 The  *5*, *6*, *11*, and *12* were designed to indicate the inheritance of LW (odd number) or MIN (even number) alleles in the paternal and maternal genomes of the F2. The recombination events were determined by finding a boundary haborbing allele changes, for example from *5* to *6* on the paternal chromosome (*3*). 
 
-For detailes, please see implementation of the three R functions.
+For details, please see implementation of the three R functions.
