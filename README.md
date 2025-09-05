@@ -6,6 +6,7 @@ This provides the data and scripts to explore the genetics underlying hybrid eff
    All the F2 individuals were raised without any directional selection imposed by humans, and the phenotypes of the F2 are expected to vary with the segregation of the LW and MIN alleles in the F2 population. A total of 135 traits were collected in the F2 population, and most of them are collected at 240 days after birth. The raw phenotypic data was supplied in CSV format with a filename of “f2_trait_name_trait_value.csv”. The file contains five columns, indicating the sample ("f2"), family id ("family"), an assigned number of a trait ("trait_id"), the abbreviation of the traits name ("trait_name"), and the value of the trait ("trait_value"). The following show an example for the intramuscular fat content (IMF) trait for a subset of the F2 samples.
 
 ```
+f2	family	trait_id	trait_name	trait_value
 1008004	10080	67	IMF	1.07
 1008908	10089	67	IMF	2.48
 1008001	10080	67	IMF	1.53
