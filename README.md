@@ -77,7 +77,7 @@ The hybrid effect is defined as the phenotypic difference between the homozygous
 
 
 ## 5. Female heterozygote deficiency
-The comparison between male and female heterozygote frequency is used to reveal the selection in each sex. The analysis is based on the whole genome resequencing data. The SNPs were grouped by the minior allele frequency (MAF) with a bin size of 0.05. For each group, the number of heterozogytes and homozygotes were compared between the sexes. 
+The comparison between male and female heterozygote frequencies is used to reveal the selection in each sex. The analysis is based on the whole genome resequencing data. The SNPs were grouped by the minior allele frequency (MAF) with a bin size of 0.05. For each group, the number of heterozogytes and homozygotes were compared between the sexes. 
 
 The analysis was conducted using a C program (xie_unphased_vcf_for_heterozygote_stat.cpp):
 ```
