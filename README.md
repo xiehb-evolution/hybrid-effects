@@ -85,8 +85,11 @@ vcftools --gzvcf F2.biallelic.chr.vcf.gz --min-alleles 2 --max-alleles 2 --exclu
 ```
 Here, the 100000 is the size of sliding windows, 4 and 15 are the thresholds of minimum and maximum sequencing depths for SNP sites, and the F2male.txt and F2female.txt are files providing the sample lists of F2 males and F2 females. The "F2.biallelic.chr.vcf.gz" is the VCF file for the LW-MIN family. The "excluded.snps.list" is a list of SNPs that are excluded in the analysis due to the tendency of mapping errors from paralogous genomic sequences.
 
-The results is provided in the "F2.4to15X.100k.exclude.snps.allelefreq.stat.out" file. The format is given in below:
-
+The results is provided in the "F2.4to15X.100k.exclude.snps.allelefreq.stat.out" file. The format is given as below:
+```
+Chr     Position        Pop1size        Pop2size        SNPs    HomoSites1      HetSites1       HomoSites2      HetSites2       HetRatio1       HetRatio2
+```
+The Chr and Position indicate a sliding window with position (0-based) being the lower bound, the Pop1size (from F1male.txt) and Pop2size (from F2female.txt) are the sizes of samples covering the SNP. SNPs is the total number of SNPs in this window. HomoSites1 and HetSites1 are the total number of homozygotes and heterozygotes counted in the samples in F2male.txt, and HomoSites1 and HetSites1 provide information in samples from F2female.txt. HetRatio1 and HetRatio2 are the ratio of heterozygotes in the F2 males and females in a window. The six columns (from HomoSites1 to HetRatio2) replicate 10 times to indicate results on SNPs with different MAFs (a step size of 0.05).
 
 
 
