@@ -77,7 +77,7 @@ The hybrid effect is defined as the phenotypic difference between the homozygous
 
 
 ## 5. Female heterozygote deficiency
-The analysis is based on the whole genome resequencing data. The SNPs were grouped by the minior allele frequency (MAF) with a bin size of 0.05. For each bin, the number of heterozogytes and homozygotes were compared between the sexes and used to test the selection against the heterozygotes.
+The comparison between male and female heterozygote frequency is used to reveal the selection in each sex. The analysis is based on the whole genome resequencing data. The SNPs were grouped by the minior allele frequency (MAF) with a bin size of 0.05. For each group, the number of heterozogytes and homozygotes were compared between the sexes. 
 
 The analysis was conducted using a C program (xie_unphased_vcf_for_heterozygote_stat.cpp):
 ```
@@ -89,7 +89,7 @@ The results is provided in the "F2.4to15X.100k.exclude.snps.allelefreq.stat.out"
 ```
 Chr     Position        Pop1size        Pop2size        SNPs    HomoSites1      HetSites1       HomoSites2      HetSites2       HetRatio1       HetRatio2
 ```
-The Chr and Position indicate a sliding window with position (0-based) being the lower bound, the Pop1size (from F1male.txt) and Pop2size (from F2female.txt) are the sizes of samples covering the SNP. SNPs is the total number of SNPs in this window with 0 < MAF < 0.05. HomoSites1 and HetSites1 are the total number of homozygotes and heterozygotes counted in the samples in F2male.txt, and HomoSites1 and HetSites1 provide information in samples from F2female.txt. HetRatio1 and HetRatio2 are the ratio of heterozygotes in the F2 males and females in a window. The seven columns (from SNPs to HetRatio2) replicate 10 times to indicate results on SNPs with different MAFs (a step size of 0.05).
+The Chr and Position indicate a 100-kb sliding window with a given lower boundary (0-based), the Pop1size (from F1male.txt) and Pop2size (from F2female.txt) are the sizes of samples covering the SNP. SNPs is the total number of SNPs in this window with 0 < MAF < 0.05. HomoSites1 and HetSites1 are the total number of homozygotes and heterozygotes counted in the samples in F2male.txt, and HomoSites1 and HetSites1 provide information in samples from F2female.txt. HetRatio1 and HetRatio2 are the ratio of heterozygotes in the F2 males and females in a window. The seven columns (from SNPs to HetRatio2) replicate 10 times to indicate results on SNPs with different MAFs (a step size of 0.05).
 
 
 
