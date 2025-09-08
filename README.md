@@ -52,16 +52,16 @@ For details, please see the implementation of the three R functions.
 The genomic transmission for all SNPs were generated in the f2.inheritance.txt file with the following format:
 ```
 f2	chromosome	position	paternal_allele	maternal_allele
-1007207	2	137601377	<span style="color:red;">5</span>	<span style="color:red;">11</span>
-1007207	2	137609824	<span style="color:red;">5</span>	<span style="color:red;">11</span>
-1007207	2	137650460	<span style="color:red;">5</span>	<span style="color:red;">11</span>
-1007207	2	137892857	<span style="color:red;">5</span>	<span style="color:red;">11</span>
-1007207	2	137978735	<span style="color:red;">5</span>	<span style="color:blue;">12</span>
-1007207	2	138011068	<span style="color:red;">5</span>	<span style="color:blue;">12</span>
-1007207	2	138014980	<span style="color:red;">5</span>	<span style="color:blue;">12</span>
-1007207	2	138048646	<span style="color:red;">5</span>	<span style="color:blue;">12</span>
-1007207	2	138066066	<span style="color:red;">5</span>	<span style="color:blue;">12</span>
-1007207	2	138137424	<span style="color:red;">5</span>	<span style="color:blue;">12</span>
+1007207	2	137601377	5	11
+1007207	2	137609824	5	11
+1007207	2	137650460	5	11
+1007207	2	137892857	5	11
+1007207	2	137978735	5	12
+1007207	2	138011068	5	12
+1007207	2	138014980	5	12
+1007207	2	138048646	5	12
+1007207	2	138066066	5	12
+1007207	2	138137424	5	12
 ```
 There is a recombination event detected in the maternal chromosome 2 of the F2 (id 1007207) between two SNPs (coordinates:137892857 and 137978735). The fifth and sixth columns indicates the F0 alleles in the F2 genomes as described above (*5*: LW allele, *11*: LW allele, and *12*: MIN allele). 
 
