@@ -91,7 +91,7 @@ The results is provided in the "F2.4to15X.100k.exclude.snps.allelefreq.stat.out"
 ```
 Chr     Position        Pop1size        Pop2size        SNPs    HomoSites1      HetSites1       HomoSites2      HetSites2       HetRatio1       HetRatio2
 ```
-The Chr and Position indicate a 100-kb sliding window with a given lower boundary (0-based), the Pop1size (from F1male.txt) and Pop2size (from F2female.txt) are the sizes of samples covering the SNP. SNPs is the total number of SNPs in this window with 0 < MAF < 0.05. HomoSites1 and HetSites1 are the total number of homozygotes and heterozygotes counted in the samples in F2male.txt, and HomoSites1 and HetSites1 provide information in samples from F2female.txt. HetRatio1 and HetRatio2 are the ratio of heterozygotes in the F2 males and females in a window. The seven columns (from SNPs to HetRatio2) replicate 10 times to indicate results on SNPs with different MAFs (a step size of 0.05).
+The Chr and Position indicate a 100-kb sliding window with a given lower boundary (0-based), the Pop1size (from F1male.txt) and Pop2size (from F2female.txt) are the sizes of samples with genomic data covering this window. SNPs is the total number of SNPs in this window with 0 < MAF < 0.05. HomoSites1 and HetSites1 are the total number of homozygotes and heterozygotes counted in the samples in F2male.txt, and HomoSites1 and HetSites1 provide information in samples from F2female.txt. HetRatio1 and HetRatio2 are the ratio of heterozygotes in the F2 males and females in a window. The seven columns (from SNPs to HetRatio2) replicate 10 times to indicate the results on SNPs with different MAFs (a step size of 0.05).
 
 
 
