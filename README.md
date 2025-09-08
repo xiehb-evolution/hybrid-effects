@@ -72,7 +72,21 @@ The following figure shows the inheritance of alleles on chromosome 5 in a F2 in
 To reduce the complexity in the following analysis on hybrid effects, the f2.inheritance.txt was saved to a MySQL server, all the subsequent analysis was based on the saved tables.
 
 ## 4. Hybrid effect analysis
-The hybrid effect is defined as the phenotypic difference between the homozygous (LW/LW or MIN/MIN) and heterozygous (LW/MIN or MIN/LW) genotypes. For each 100-kb window, four homozygote-heterozygote combinations (LW/LW-LW/MIN, LW/LW-MIN/LW, MIN/MIN-LW/MIN, and MIN/MIN-MIN/LW) were included. For all the 135 traits, the calcualted homozygote-heterozygote difference was scaled to the phenotypic mean of each sex, which makes the hybrid effects comparable across different traits.
+The hybrid effect is defined as the phenotypic difference between the homozygous (LW/LW or MIN/MIN) and heterozygous (LW/MIN or MIN/LW) genotypes in the LW-MIN F2 population. For each 100-kb window, four homozygote-heterozygote combinations (LW/LW-LW/MIN, LW/LW-MIN/LW, MIN/MIN-LW/MIN, and MIN/MIN-MIN/LW) were included. For all the 135 traits, the calcualted homozygote-heterozygote difference was scaled to the phenotypic mean of each sex, which makes the hybrid effects comparable across different traits.
+
+
+
+## 5. Female heterozygote deficiency
+The analysis is based on the whole genome resequencing data. The SNPs were grouped by the minior allele frequency (MAF) with a bin size of 0.05. For each bin, the number of heterozogytes and homozygotes were compared between the sexes and used to test the selection against the heterozygotes.
+
+The analysis was conducted using a C program (xie_unphased_vcf_for_heterozygote_stat.cpp):
+```
+vcftools --gzvcf F2.biallelic.chr.vcf.gz --min-alleles 2 --max-alleles 2 --exclude-positions excluded.snps.list --recode --stdout | xie_unphased_vcf_for_heterozygote_depth_allelefreq_stat 100000 4 15 F2male.txt F2female.txt > F2.4to15X.100k.exclude.snps.allelefreq.stat.out
+```
+Here, the 100000 is the size of sliding windows, 4 and 15 are the thresholds of minimum and maximum of the sequencing depth at SNP site, and the F2male.txt and F2female.txt are files providing the sample lists of F2 males and F2 females.
+
+
+
 
 
 
