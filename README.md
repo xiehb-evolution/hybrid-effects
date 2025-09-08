@@ -81,9 +81,12 @@ The analysis is based on the whole genome resequencing data. The SNPs were group
 
 The analysis was conducted using a C program (xie_unphased_vcf_for_heterozygote_stat.cpp):
 ```
-vcftools --gzvcf F2.biallelic.chr.vcf.gz --min-alleles 2 --max-alleles 2 --exclude-positions excluded.snps.list --recode --stdout | xie_unphased_vcf_for_heterozygote_depth_allelefreq_stat 100000 4 15 F2male.txt F2female.txt > F2.4to15X.100k.exclude.snps.allelefreq.stat.out
+vcftools --gzvcf F2.biallelic.chr.vcf.gz --min-alleles 2 --max-alleles 2 --exclude-positions excluded.snps.list --recode --stdout | xie_unphased_vcf_for_heterozygote_stat 100000 4 15 F2male.txt F2female.txt > F2.4to15X.100k.exclude.snps.allelefreq.stat.out
 ```
-Here, the 100000 is the size of sliding windows, 4 and 15 are the thresholds of minimum and maximum of the sequencing depth at SNP site, and the F2male.txt and F2female.txt are files providing the sample lists of F2 males and F2 females.
+Here, the 100000 is the size of sliding windows, 4 and 15 are the thresholds of minimum and maximum sequencing depths for SNP sites, and the F2male.txt and F2female.txt are files providing the sample lists of F2 males and F2 females. The "F2.biallelic.chr.vcf.gz" is the VCF file for the LW-MIN family. The "excluded.snps.list" is a list of SNPs that are excluded in the analysis due to the tendency of mapping errors from paralogous genomic sequences.
+
+The results is provided in the "F2.4to15X.100k.exclude.snps.allelefreq.stat.out" file. The format is given in below:
+
 
 
 
