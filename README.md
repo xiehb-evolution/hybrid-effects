@@ -33,8 +33,7 @@ do
 	shapeit -T 10 -P chr$i.ped chr$i.map --duohmm -W 15 --output-max chr$i.phased.duohmm --output-graph chr$i.phased.duohmm.graph --force
 done
 ```
-
-![image](https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/inheritance2.jpg)
+* [shapeit](https://mathgen.stats.ox.ac.uk/genetics_software/shapeit/shapeit.html) - Version : v2.r904
 
 
 ## 3. Transmission analysis and recombination breakpoint identification
@@ -42,7 +41,8 @@ We prepared a R script ("1.determination of recombination breakpoints and alleli
 
 We applied several steps to determine the genomic transmission in the LW-MIN family. First, the phased data produced by the shapeit software were loaded into a dataframe in  the R. To reduce the computation complexity, the haplotype data of four grandparents and two parents for each F2 were extracted for analysis. Second, a combination of R functions *GetScore*, *StepHap*, and *correcting_haplotype* were developed to determine the genomic transmission across generations, especially from F1 to F2. In the LW-MIN family,  the F1 is always heterozygous (paternal/maternal as LW/MIN). In F1 males, the paternal chromosome (LW) was assigned with a number of *5*, and maternal chromosome (MIN) with a number of *6*. The numbers do not indiciate the chromosomes 5 and 6, but show the allele origin in the F0-F1-F2 transmission for each autosome. In F1 females, the paternal and maternal chromosomes were assigned to *11* and *12*. For the F2 offspring, the paternal and maternal chromosomes  were assigned *3* and *4*, respectively. Therefore, the *3* was identical to *5* or *6* if no recombination events was involved in the paternal genome, or a mosaic chromosome with both *5* and *6*. A similar case is for *4* represented by the *11* and *12*.  The following figure shows the naming convention.
 
-![image](https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/shapeit.jpg)
+![image](https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/inheritance2.jpg)
+
 
 The  *5*, *6*, *11*, and *12* were designed to indicate the inheritance of LW (odd number) or MIN (even number) alleles in the paternal and maternal genomes of the F2. The recombination events were determined by finding a boundary haborbing allele changes, for example from *5* to *6* on the paternal chromosome with an assigned number *3*. 
 
@@ -66,7 +66,7 @@ There is a recombination event detected in the maternal chromosome 2 of the F2 (
 
 The following figure shows the inheritance of alleles on chromosome 5 in a F2 individual (930806). The red and blue colors indicate the LW and MIN alleles, respectively. The recombination breakpoints are indicated by the boundary SNPs at red-blue color shift  in the paternal and maternal genomes.
 
-![boxplot2](tmp/chr5.930806.png)
+![image](https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/shapeit.jpg)
 
 To reduce the complexity in the following analysis on hybrid effects, the f2.inheritance.txt was saved to a MySQL server, all the subsequent analysis was based on the saved tables.
 
