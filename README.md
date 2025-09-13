@@ -74,6 +74,103 @@ To reduce the complexity in the following analysis on hybrid effects, the f2.inh
 ## 4. Hybrid effect analysis
 The hybrid effect is defined as the phenotypic difference between the homozygous (LW/LW or MIN/MIN) and heterozygous (LW/MIN or MIN/LW) genotypes in the LW-MIN F2 population. For each 100-kb window, four homozygote-heterozygote combinations (LW/LW-LW/MIN, LW/LW-MIN/LW, MIN/MIN-LW/MIN, and MIN/MIN-MIN/LW) were included. For all the 135 traits, the calcualted homozygote-heterozygote difference was scaled to the phenotypic mean of each sex, which makes the hybrid effects comparable across different traits.
 
+### 4.1 Data processing and window-based analysis
+
+The inheritance data from Section 3 was processed using the R script "2. F2 inheritance fragment processing and trait association preparation.R" to convert SNP-level inheritance patterns into 100-kb genomic windows. For each window, F2 individuals were classified into four genotype categories:
+
+- **MIN/MIN**: Both paternal and maternal alleles from MIN population
+- **LW/LW**: Both paternal and maternal alleles from LW population
+- **MIN/LW**: Paternal MIN allele, maternal LW allele
+- **LW/MIN**: Paternal LW allele, maternal MIN allele
+
+The analysis maintains distinction between reciprocal heterozygotes to account for parent-of-origin effects.
+
+### 4.2 Statistical analysis pipeline
+
+Within each 100-kb window, phenotypic means were calculated for each genotype class using the 135 trait measurements. The analysis was conducted separately for males and females. Four homozygote-heterozygote comparisons were performed:
+
+1. MIN/MIN vs MIN/LW
+2. MIN/MIN vs LW/MIN
+3. LW/LW vs MIN/LW
+4. LW/LW vs LW/MIN
+
+The hybrid effect size was calculated and standardized:
+
+```
+Standardized Effect = (Heterozygote Mean - Homozygote Mean) / Sex-Specific Trait Mean
+```
+
+This normalization enables direct comparison across all 135 traits with different units and scales.
+
+### 4.3 Fisher's geometric model and λ parameter estimation
+
+The hybrid effect analysis follows Fisher's Geometric Model framework, where homozygotes serve as reference genotypes and heterozygotes as mutant genotypes. The distribution of standardized effect sizes was fitted to exponential distributions using the `fitdistrplus` R package.
+
+The λ parameter characterizes hybrid effect magnitude:
+
+- **High λ values (λ > 33.5)**: Small effects, indicating hybrid vigor
+- **Low λ values (λ < 33.5)**: Large effects, indicating inbreeding depression or hybrid depression
+
+Parameter estimation was conducted separately for males and females.
+
+### 4.4 FST-based classification of hybrid effects
+
+Genomic windows were stratified by FST values calculated from whole-genome resequencing data of LW and MIN founder populations. Based on λ parameters and FST values, hybrid effects were classified into three categories:
+
+- **Hybrid vigor**: λ > 33.5 (heterozygote advantage across all FST ranges)
+- **Inbreeding depression**: λ < 33.5 and FST < 0.095 (large effects in weakly differentiated regions)
+- **Hybrid depression**: λ < 33.5 and FST > 0.285 (large effects in highly differentiated regions)
+
+### 4.5 Database implementation and quality control
+
+All data was integrated into MySQL databases using the following workflow:
+
+1. **Data integration**: The "f2inheritance.txt" file from Section 3 was imported into MySQL tables
+2. **Fragment processing**: SNP-level data was aggregated into 100-kb windows
+3. **Trait association**: Phenotypic data was linked to genotype classifications
+4. **Statistical computation**: Window-based means and effect sizes calculated for each trait-sex combination
+
+Quality control filters excluded windows with insufficient sample sizes or excessive missing data. The database schema was optimized for efficient querying of the large-scale genomic and phenotypic datasets.
+
+The key database tables created during the analysis include:
+
+**f2inheritance**: SNP-level allelic inheritance patterns
+
+```
+f2	chr	pos	f1father	f1mother
+1007207	2	137601377	5	11
+1007207	2	137609824	5	11
+1007207	2	137650460	5	11
+```
+
+**f2fragmentinheritance_window100k**: 100-kb window genotype assignments
+
+```
+f2	chr	window	inheritance	origin
+1007207	1	0	0	P
+1007207	1	0	1	M
+1007207	1	1	1	P
+```
+
+**window100k_single_site_trait_stat_mutant_deviation_from_mean**: Hybrid effect statistics
+
+```
+trait_id	chr	window	paternalinheritance	maternalinheritance	malecount	femalecount	maletrait	femaletrait	maledev	femaledev
+1	1	0	0	0	15	18	2.34	2.56	0.12	0.08
+1	1	0	0	1	12	14	2.45	2.61	0.18	0.14
+1	1	0	1	0	13	16	2.29	2.48	0.09	0.05
+```
+
+**renew_complete_data_with_overall**: Integrated analysis table with FST and recombination data
+
+```
+chr	window	lambda	WEIGHTED_FST	snps	recombination_rate	Sex	tag
+1	0	35.2	0.124	45	0.0034	Overall	hybrid vigor
+1	1	28.7	0.089	52	0.0041	Overall	inbreeding depression
+1	2	31.8	0.267	38	0.0028	Overall	hybrid depression
+```
+
+The computational pipeline enables genome-wide analysis of hybrid effects while maintaining efficiency through the sliding window approach. All R scripts for data processing, statistical analysis, and visualization are provided in this repository.
 
 
 ## 5. Female heterozygote deficiency
