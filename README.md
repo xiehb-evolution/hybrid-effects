@@ -110,7 +110,7 @@ The λ parameter characterizes hybrid effect magnitude:
 - **High λ values (λ > 33.5)**: Small effects, indicating hybrid vigor
 - **Low λ values (λ < 33.5)**: Large effects, indicating inbreeding depression or hybrid depression
 
-Parameter estimation was conducted separately for males and females.The figure below visually illustrates the differences between them.
+To accurately investigate the effects of sex, parameter estimation was conducted separately for male and female individuals. The differences between the two groups are visually presented in the figure below, with panel A corresponding to males and panel B to females.
 
 ![image](https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/figureS1_00.png)
 
