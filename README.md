@@ -105,7 +105,7 @@ This normalization enables direct comparison across all 135 traits with differen
 
 The distribution of standardized hybrid effect sizes was fitted to exponential distributions using the `fitdistrplus` R package. 
 
-To accurately investigate the effects of sex, parameter estimation was conducted separately for male and female individuals. The differences between the two groups are visually presented in the figure below, with panel A corresponding to males and panel B to females.
+To accurately investigate the hybrid effect in sexes, the λ parameter was estimated separately for male and female individuals. The hybrid effect size distributions are presented in the figure below, with figure A indicates the distribution in males and figure B indicates the distribution in females.
 
 ![image](https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/figureS1_00.png)
 
