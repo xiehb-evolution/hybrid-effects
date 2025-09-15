@@ -184,12 +184,12 @@ The computational pipeline enables genome-wide analysis of hybrid effects while 
 ## 5. Female heterozygote deficiency
 The whole genome resequencing data was deposited in the Genome Sequence Archive (GSA; http://gsa.big.ac.cn) under accession number CRA002451. The lists for F2 males and F2 females are provided in the text files "F2male.txt" and "F2female.txt".
 
-To reduce the detection of heterozygotes caused by unreliable/multiple mapping of paralogous reads in the autosomes, the BAM files (mapping data of the genomic reads) were filtered using a C program ("filter_bam.cpp" under the folder "C code") to keep uniquely-mapped paired-reads with high mapping qualities. The compilation of the executable binary program requires the HTSLib. The usage of filter_bam is supplied with an example of shell script "process_bam.sh".
+To reduce the detection of heterozygotes caused by unreliable/multiple mapping of paralogous reads in the autosomes, the BAM files (mapping data of the genomic reads) were filtered using a C++ program ("filter_bam.cpp" under the folder "Cpp") to keep uniquely-mapped paired-reads with high mapping qualities. The compilation of the executable binary program requires the HTSLib. The usage of filter_bam is supplied with an example of shell script "process_bam.sh".
 * [HTSlib](https://github.com/samtools/htslib/releases/) - Version : v1.20
 
 The comparison between male and female heterozygote frequencies is used to reveal the selection in each sex. The analysis is based on the whole genome resequencing data. The SNPs were grouped by the minior allele frequency (MAF) with a bin size of 0.05. For each group, the number of heterozogytes and homozygotes were compared between the sexes. 
 
-The analysis was conducted using a C program (xie_unphased_vcf_for_heterozygote_stat.cpp under directory "C code"):
+The analysis was conducted using a C++ program (xie_unphased_vcf_for_heterozygote_stat.cpp under folder "Cpp"):
 ```
 vcftools --gzvcf F2.biallelic.chr.vcf.gz --min-alleles 2 --max-alleles 2 --exclude-positions excluded.snps.list --recode --stdout | xie_unphased_vcf_for_heterozygote_stat 100000 4 15 F2male.txt F2female.txt > F2.4to15X.100k.exclude.snps.allelefreq.stat.out
 ```
