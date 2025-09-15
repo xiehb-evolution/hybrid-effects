@@ -110,7 +110,9 @@ To accurately investigate the hybrid effect in sexes, the λ parameter was estim
 ![image](https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/figureS1_00.png)
 
 ### 4.4 Interplay of genetic differentiation and recombination in hybrid effect transition
-The hybrid effect variation was explored across 100-kb autosomal windows under different levels of genetic differentiation （Fst）. The genomic windows were classified into 20 bins according to their Fst values calculated between the LW and MIN founder populations using the whole genome resequencing data. The λ for the exponential distribution of hybrid effects and the mean recombination rate were calcualted for each bin of the autosomal windows. The genomic transition of hybrid effects were examined according to the variation of the λ parameters across bins.
+The hybrid effect variation was explored across 100-kb autosomal windows under different levels of genetic differentiation （Fst）. The genomic windows were classified into 20 bins according to their Fst values calculated between the LW and MIN founder populations using the whole genome resequencing data. The λ for the exponential distribution of hybrid effects and the mean recombination rate were calcualted for each bin of the autosomal windows. The genomic transition of hybrid effects were examined according to the variation of the λ parameters across bins. The following figure shows the hump-shaped distribution of the λ, and R script is provided in the file "".
+
+![image](https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/lambda.png)
 
 According to Ronald Fisher's geometric model (FGM, please see **THE GENETICAL THEORY OF NATURAL SELECTION**, 1930), mutations with large effect sizes tend to be deleterious. In the FGM framework, we explored the hybrid effect by considering the homozygotes as wild types and the heterozygotes as mutant types. The expected effect size for each of the 20 bins is the reciprocal value of the λ parameter (or 1/λ), and therefore larger λ values indicate higher probability of being beneficial hybrid effect in the FGM. 
 
