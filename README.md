@@ -99,7 +99,7 @@ The hybrid effect size was calculated as below:
 Standardized hybrid effect size = abs(Mean-of-heterozygote - Mean-of-homozygote) / (Mean of a sex)
 ```
 
-This normalization enables direct comparison across all 135 traits with different units and scales.
+This convertion enables direct comparison across all 135 traits with different units and scales.
 
 ### 4.3 Exponential distribution of hybrid effect size and λ parameter estimation
 
