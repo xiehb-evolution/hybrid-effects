@@ -103,19 +103,13 @@ This normalization enables direct comparison across all 135 traits with differen
 
 ### 4.3 Exponential distribution of hybrid effect size and λ parameter estimation
 
-The distribution of standardized hybrid effect sizes was fitted to exponential distributions using the `fitdistrplus` R package.
-
-The λ parameter characterizes hybrid effect magnitude:
-
-- **High λ values (λ > 33.5)**: Small effects, indicating hybrid vigor
-- **Low λ values (λ < 33.5)**: Large effects, indicating inbreeding depression or hybrid depression
+The distribution of standardized hybrid effect sizes was fitted to exponential distributions using the `fitdistrplus` R package. 
 
 To accurately investigate the effects of sex, parameter estimation was conducted separately for male and female individuals. The differences between the two groups are visually presented in the figure below, with panel A corresponding to males and panel B to females.
 
 ![image](https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/figureS1_00.png)
 
-### 4.4 FST-based classification of hybrid effects
-
+### 4.4 Genomic transition of hybrid effects
 Genomic windows were stratified by FST values calculated from whole-genome resequencing data of LW and MIN founder populations. Based on λ parameters and FST values, hybrid effects were classified into three categories:
 
 - **Hybrid vigor**: λ > 33.5 (heterozygote advantage across all FST ranges)
