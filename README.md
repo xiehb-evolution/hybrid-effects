@@ -84,19 +84,19 @@ The inheritance data from Section 3 was processed using the R script "2. F2 inhe
 
 The analysis maintains distinction between reciprocal heterozygotes to account for parent-of-origin effects.
 
-### 4.2 Statistical analysis pipeline
+### 4.2 Definition of hybrid effects
 
-Within each 100-kb window, phenotypic means were calculated for each genotype class using the 135 trait measurements. The analysis was conducted separately for males and females. Four homozygote-heterozygote comparisons were performed:
+The hybrid effect was defined as the difference in phenotypic means of the homozygous and heterozygous genotypes in the LW-MIN F2 population. Within each 100-kb window, phenotypic means were calculated for each genotype on the 135 traits. The analysis was conducted separately for males and females. Four homozygote-heterozygote comparisons were performed:
 
 1. MIN/MIN vs MIN/LW
 2. MIN/MIN vs LW/MIN
 3. LW/LW vs MIN/LW
 4. LW/LW vs LW/MIN
 
-The hybrid effect size was calculated and standardized:
+The hybrid effect size was calculated and standardized as below:
 
 ```
-Standardized Hybrid Effect = (Heterozygote Mean - Homozygote Mean) / Sex-Mean
+Standardized hybrid effect size = (Heterozygote Mean - Homozygote Mean) / (Sex mean)
 ```
 
 This normalization enables direct comparison across all 135 traits with different units and scales.
