@@ -110,7 +110,7 @@ To accurately investigate the hybrid effect in sexes, the λ parameter was estim
 ![image](https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/figureS1_00.png)
 
 ### 4.4 Interplay of genetic differentiation and recombination in hybrid effect transition
-The hybrid effect variation was explored across 100-kb autosomal windows under different levels of genetic differentiation （Fst）. The genomic windows were classified into 20 bins according to their Fst values calculated between the LW and MIN founder populations using the whole genome resequencing data. The λ for the exponential distribution of hybrid effects and the mean recombination rate were calcualted for each bin of the autosomal windows. The genomic transition of hybrid effects were examined according to the variation of the λ parameters across bins. The following figure shows the hump-shaped distribution of the λ, and R script is provided in the file "".
+The hybrid effect variation was explored across 100-kb autosomal windows under different levels of genetic differentiation （Fst）. The genomic windows were classified into 20 bins according to their Fst values calculated between the LW and MIN founder populations using the whole genome resequencing data. The λ for the exponential distribution of hybrid effects and the mean recombination rate were calcualted for each bin of the autosomal windows. The genomic transition of hybrid effects were examined according to the variation of the λ parameters across bins. The following figure shows the hump-shaped distribution of the λ and the positive correlation between recombination rates and λ. The R script is provided in the file "".
 
 ![image](https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/lambda.png)
 
