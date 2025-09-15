@@ -115,7 +115,7 @@ The hybrid effect variation was explored across 100-kb autosomal windows under d
 According to the Fisher's geometric model (FGM, please see **THE GENETICAL THEORY OF NATURAL SELECTION**, 1930), mutations with large effect sizes tend to be deleterious. In the FGM framework, we explored the hybrid effect by considering the homozygotes as wild types and the heterozygotes as mutant types. The expected effect size for each of the 20 bins is the reciprocal value of the λ parameter (or 1/λ), and therefore larger λ values indicate higher probability of being beneficial hybrid effect in the FGM. 
 
 Here, we chose an empricial threshold at λ = 33.5 (close to the λ mean for the 20 bins) to define three distinct hybrid effects:
-- **Hybrid vigor**: λ > 33.5 (small effects in regions showing mild-to-moderate levels of differentiation and the highest levels of recombiantion rate)
+- **Hybrid vigor**: λ > 33.5 (small effects in regions showing mild-to-moderate levels of differentiation and the highest recombiantion rates)
 - **Inbreeding depression**: λ < 33.5 and FST < 0.095 (large effects in weakly differentiated regions)
 - **Hybrid depression**: λ < 33.5 and FST > 0.285 (large effects in highly differentiated regions)
 
