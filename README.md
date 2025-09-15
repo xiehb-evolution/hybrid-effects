@@ -96,14 +96,14 @@ Within each 100-kb window, phenotypic means were calculated for each genotype cl
 The hybrid effect size was calculated and standardized:
 
 ```
-Standardized Effect = (Heterozygote Mean - Homozygote Mean) / Sex-Specific Trait Mean
+Standardized Hybrid Effect = (Heterozygote Mean - Homozygote Mean) / Sex-Mean
 ```
 
 This normalization enables direct comparison across all 135 traits with different units and scales.
 
-### 4.3 Fisher's geometric model and λ parameter estimation
+### 4.3 Exponential distribution of hybrid effect size and λ parameter estimation
 
-The hybrid effect analysis follows Fisher's Geometric Model framework, where homozygotes serve as reference genotypes and heterozygotes as mutant genotypes. The distribution of standardized effect sizes was fitted to exponential distributions using the `fitdistrplus` R package.
+The distribution of standardized hybrid effect sizes was fitted to exponential distributions using the `fitdistrplus` R package.
 
 The λ parameter characterizes hybrid effect magnitude:
 
