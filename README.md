@@ -123,7 +123,7 @@ Here, we chose an empricial threshold at λ = 33.5 (close to the λ mean for the
 
 The sex-specific patterns of genomic variation were further investigated by analyzing lambda parameters separately for males and females across different levels of population differentiation (FST). The genomic windows were grouped into bins according to their FST values, and lambda values from exponential distributions were calculated independently for each sex within each FST bin. This approach allowed for the examination of how genetic divergence between populations affects male and female genomes differently. The following figure demonstrates the sex-specific lambda variation across the FST gradient, revealing distinct patterns between males and females. LOESS regression curves with 95% confidence intervals show that while both sexes exhibit smooth trends in lambda values, they differ significantly in their magnitude and directional responses to increasing genetic differentiation. The analysis reveals important insights into sex-biased evolutionary processes under varying levels of population structure. The R script is provided in the file "figure2.R".
 
-![image](https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/lambda.png)
+![image](https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/figure2_A.jpg)
 
 
 ### 4.5 Database implementation and quality control
