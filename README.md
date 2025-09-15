@@ -110,11 +110,15 @@ To accurately investigate the hybrid effect in sexes, the λ parameter was estim
 ![image](https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/figureS1_00.png)
 
 ### 4.4 Genomic transition of hybrid effects
-Genomic windows were stratified by FST values calculated from whole-genome resequencing data of LW and MIN founder populations. Based on λ parameters and FST values, hybrid effects were classified into three categories:
+The hybrid effect variation was calcuated on 100-kb autosomal windows with different levels of genetic differentiation. The genomic windows were classified into 20 bins according to their Fst values calculated from whole-genome resequencing data of LW and MIN founder populations. The λ was calcualted for each bin of the autosomal windows. The genomic transition of hybrid effects were examined according to the variation in the λ parameters.
 
+According to the Fisher's geometric model (FGM, please see Fisher's **THE GENETICAL THEORY OF NATURAL SELECTION**, 1930), mutations with large effect sizes tend to be deleterious. In the FGM framework, we explored the hybrid effect by considering the homozygotes as wild types and the heterozygotes as mutant types. The expected effect size for each of the 20 bins is the reciprocal value of the λ parameter (or 1/λ), and therefore larger λ values indicate higher probability of being beneficial hybrid effect in the FGM. 
+
+Here, we chose an empricial criterion to define three different hybrid effects:
 - **Hybrid vigor**: λ > 33.5 (heterozygote advantage across all FST ranges)
 - **Inbreeding depression**: λ < 33.5 and FST < 0.095 (large effects in weakly differentiated regions)
 - **Hybrid depression**: λ < 33.5 and FST > 0.285 (large effects in highly differentiated regions)
+
 
 ### 4.5 Database implementation and quality control
 
