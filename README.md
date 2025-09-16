@@ -68,7 +68,7 @@ The following figure shows the inheritance of alleles on chromosome 5 in a F2 in
 
 ![image](https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/shapeit.jpg)
 
-To reduce the complexity in the following analysis on hybrid effects, the f2.inheritance.txt was saved to a MySQL server, all the subsequent analysis was based on the saved tables.
+To reduce the complexity in the following analysis, the f2.inheritance.txt was saved to a MySQL server, and all the subsequent analysis on hybrid effects was based on the saved tables.
 
 ## 4. Hybrid effect analysis
 
