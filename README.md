@@ -95,7 +95,10 @@ The hybrid effect was defined as the difference in phenotypic means of the homoz
 The hybrid effect size was calculated as below:
 
 ```
-Standardized hybrid effect size = abs(Mean-of-heterozygote - Mean-of-homozygote) / (Mean of a sex)
+Dev(homozygote) = abs(Mean-of-homozygote - Mean-of-a-sex) / Mean-of-a-sex
+Dev(heterozygote) = abs(Mean-of-heterozygote - Mean-of-a-sex) / Mean-of-a-sex
+
+Standardized hybrid effect size = abs( Dev(homozygote) - Dev(heterozygote) ) 
 ```
 
 This convertion enables direct comparison across all 135 traits with different units and scales.
