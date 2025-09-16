@@ -99,6 +99,8 @@ Standardized hybrid effect size = abs(Mean-of-homozygote - Mean-of-heterozygote)
 ```
 Here, the Mean-of-homozygote and Mean-of-heterozygote represent the phenotypic means of individuals of a sex carrying the homozygous and heterozygous genotypes in a 100-kb sliding window. The Mean-of-a-sex is the phenotypic mean of all individuals from the sex irrespective of their genotypes in this genomic window. This convertion enables direct comparison across all 135 traits with different units and scales.
 
+The hybrid effect data was prepared using the R script of '2. F2 inheritance fragment processing and trait association preparation.R'.
+
 ### 4.3 Exponential distribution of hybrid effect size and λ parameter estimation
 
 The distribution of standardized hybrid effect sizes was fitted to exponential distributions using the `fitdistrplus` R package. 
