@@ -97,7 +97,7 @@ The hybrid effect size was calculated as the homozygote-heterozygote phenotypic 
 ```
 Hybrid effect size = abs(Mean-of-homozygote - Mean-of-heterozygote) / Mean-of-a-sex
 ```
-Here, the Mean-of-homozygote and Mean-of-heterozygote represent the phenotypic means of individuals of a sex carrying the homozygous and heterozygous genotypes (for example, MIN/MIN - MIN/LW) in a 100-kb sliding window, respectively. The Mean-of-a-sex is the phenotypic mean of all individuals from the sex irrespective of their genotypes in this genomic window. This convertion enables direct comparison across all 135 traits with different units and scales.
+Here, the *Mean-of-homozygote* and *Mean-of-heterozygote* represent the phenotypic means of individuals of a sex carrying the homozygous and heterozygous genotypes (for example, MIN/MIN - MIN/LW) in a 100-kb sliding window, respectively. The *Mean-of-a-sex* is the phenotypic mean of all individuals from the sex irrespective of their genotypes in this genomic window. This convertion enables direct comparison across all 135 traits with different units and scales.
 
 The hybrid effect data was prepared using the R script of '2. F2 inheritance fragment processing and trait association preparation.R'. The results were stored in a MySQL table 'window100k_single_site_trait_stat_mutant_deviation_from_mean_all'.
 
