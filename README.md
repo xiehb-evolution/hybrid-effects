@@ -92,7 +92,7 @@ The hybrid effect was defined as the difference in phenotypic means of the homoz
 3. LW/LW vs MIN/LW
 4. LW/LW vs LW/MIN
 
-The hybrid effect size was calculated in a coordiante system centered at the population mean of a sex:
+The hybrid effect size was calculated as the homozygote-heterozygote phenotypic difference scaled by the population mean of a sex:
 
 ```
 Hybrid effect size = abs(Mean-of-homozygote - Mean-of-heterozygote) / Mean-of-a-sex
