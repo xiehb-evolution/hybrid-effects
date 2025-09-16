@@ -71,7 +71,6 @@ The following figure shows the inheritance of alleles on chromosome 5 in a F2 in
 To reduce the complexity in the following analysis on hybrid effects, the f2.inheritance.txt was saved to a MySQL server, all the subsequent analysis was based on the saved tables.
 
 ## 4. Hybrid effect analysis
-The hybrid effect is defined as the phenotypic difference between the homozygous (LW/LW or MIN/MIN) and heterozygous (LW/MIN or MIN/LW) genotypes in the LW-MIN F2 population. For each 100-kb window, four homozygote-heterozygote combinations (LW/LW-LW/MIN, LW/LW-MIN/LW, MIN/MIN-LW/MIN, and MIN/MIN-MIN/LW) were included. For all the 135 traits, the calcualted homozygote-heterozygote difference was scaled to the phenotypic mean of each sex, which makes the hybrid effects comparable across different traits.
 
 ### 4.1 Data processing and window-based analysis
 
