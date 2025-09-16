@@ -110,7 +110,7 @@ To accurately investigate the hybrid effect in sexes, the λ parameter was estim
 ![image](https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/figureS1_00.png)
 
 ### 4.4 Interplay of genetic differentiation and recombination in hybrid effect transition
-The hybrid effect variation was explored across 100-kb autosomal windows under different levels of genetic differentiation (Fst). The genomic windows were classified into 20 bins according to their Fst values calculated between the LW and MIN founder populations using the whole genome resequencing data. The λ for the exponential distribution of hybrid effects and the mean recombination rate were calculated for each bin of the autosomal windows. The genomic transition of hybrid effects were examined according to the variation of the λ parameters across bins. The following figure shows a hump-shaped distribution of the λ and a positive correlation between recombination rates and λ. The R script is provided in the file "figure1.R".
+The hybrid effect variation was explored across 100-kb autosomal windows under different levels of genetic differentiation (*F*<sub>ST</sub>). The genomic windows were classified into 20 bins according to their *F*<sub>ST</sub> values calculated between the LW and MIN founder populations using the whole genome resequencing data. The λ for the exponential distribution of hybrid effects and the mean recombination rate were calculated for each bin of the autosomal windows. The genomic transition of hybrid effects were examined according to the variation of the λ parameters across bins. The following figure shows a hump-shaped distribution of the λ and a positive correlation between recombination rates and λ. The R script is provided in the file "figure1.R".
 
 ![image](https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/lambda.png)
 
@@ -118,8 +118,8 @@ According to Ronald Fisher's geometric model (FGM, please see **THE GENETICAL TH
 
 Here, we chose an empricial threshold at λ = 33.5 (close to the λ mean for the 20 bins) to define three distinct types of hybrid effect:
 - **Hybrid vigor**: λ > 33.5 (small effects in regions showing mild-to-moderate levels of differentiation and the highest recombiantion rates)
-- **Inbreeding depression**: λ < 33.5 and Fst < 0.095 (large effects in weakly differentiated regions)
-- **Hybrid depression**: λ < 33.5 and Fst > 0.285 (large effects in highly differentiated regions)
+- **Inbreeding depression**: λ < 33.5 and *F*<sub>ST</sub> < 0.095 (large effects in weakly differentiated regions)
+- **Hybrid depression**: λ < 33.5 and *F*<sub>ST</sub> > 0.285 (large effects in highly differentiated regions)
 
 For λ calculation across 20 bins, please refer to the R script '5. construction of genetic diversity and heterosis analysis tables.R'.
 
@@ -170,7 +170,7 @@ trait_id	chr	window	paternalinheritance	maternalinheritance	malecount	femalecoun
 1	1	0	1	0	13	16	2.29	2.48	0.09	0.05
 ```
 
-**renew_complete_data_with_overall**: Integrated analysis table with FST and recombination data
+**renew_complete_data_with_overall**: Integrated analysis table with *F*<sub>ST</sub> and recombination data
 
 ```
 chr	window	lambda	WEIGHTED_FST	snps	recombination_rate	Sex	tag
