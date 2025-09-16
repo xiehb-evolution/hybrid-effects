@@ -26,6 +26,135 @@ con <- dbConnect(dbDriver("MySQL"),
                 user = mysqluser, 
                 password = mysqlpassword)
 
+
+# ====================================================
+# Calculate Lambda and Integrated Data Table
+# ====================================================
+
+# Defines a function to calculate Lambda
+get_lambda <- function(sex, fst_range) {
+  lower_bound <- max(0, fst_range[1])
+  
+  sql <- sprintf("SELECT a.chr, a.window, abs(a.%smutantdev - a.%sdev) as effect
+    FROM window100k_single_site_trait_stat_mutant_deviation_from_mean a,
+          fst100k b
+    WHERE a.chr < 23 
+      AND a.chr = b.chr 
+      AND a.window = b.window 
+      AND b.WEIGHTED_FST >= %f 
+      AND b.WEIGHTED_FST < %f
+    HAVING effect <= 0.3", sex, sex, lower_bound, fst_range[2])
+  
+  result <- dbGetQuery(con, sql)  
+  fit1 <- fitdistr(result$effect, "exponential")  
+  result$lambda <- fit1$estimate  
+  return(result)  
+}
+
+# Fetches and processes FST data, handling negative values.
+fst <- dbGetQuery(con, "SELECT WEIGHTED_FST FROM fst100k ORDER BY WEIGHTED_FST")
+fst$WEIGHTED_FST[fst$WEIGHTED_FST < 0] <- 0  
+fst <- dbGetQuery(con, "SELECT WEIGHTED_FST, chr FROM fst100k WHERE chr BETWEEN 1 AND 18 ORDER BY WEIGHTED_FST")
+fst$WEIGHTED_FST[fst$WEIGHTED_FST < 0] <- 0
+
+step_size <- 0.05
+
+# Calculates FST quantiles for binning and ensures they are non-negative.
+fstq <- quantile(fst$WEIGHTED_FST, probs = seq(0, 1, step_size))  
+fstq[fstq < 0] <- 0  
+
+# Function to calculate Lambda for each FST quantile bin.
+calculate_lambda <- function(sex) {
+  do.call(rbind, lapply(1:(length(fstq) - 1), function(i) {  
+    fst_range <- c(fstq[i], fstq[i+1])  
+    result <- get_lambda(sex, fst_range)  
+    result$fst_start <- fst_range[1]  
+    result$fst_end <- fst_range[2]    
+    return(result)  
+  }))
+}
+
+# Calculates Lambda values for females and males.
+female_data <- calculate_lambda("female")  
+male_data <- calculate_lambda("male")  
+
+# Combines male and female data.
+all_data <- rbind(
+  cbind(female_data, Sex = "Female"),
+  cbind(male_data, Sex = "Male")
+)
+head(all_data)
+
+# Summarizes data for plotting and calculates the mid-point for the x-axis.
+summary_data <- all_data %>%
+  group_by(fst_start, fst_end, Sex) %>%
+  summarize(Lambda = mean(lambda), .groups = "drop") %>%
+  mutate(fst_mid = (fst_start + fst_end) / 2) %>%  
+  filter(fst_mid >= 0)  
+
+# Gets min and max y-axis values for plotting.
+y_range <- range(c(summary_data$Lambda), na.rm = TRUE)
+ymin <- y_range[1] - 0.05 * abs(diff(y_range))  
+ymax <- y_range[2] + 0.05 * abs(diff(y_range))  
+
+# Function to fetch and merge all necessary data from the database.
+fetch_all_data <- function(con) {
+  # Fetches FST and SNP data.
+  fst_snp_query <- "SELECT chr, window, WEIGHTED_FST, snps FROM fst100k"
+  fst_snp_data <- dbGetQuery(con, fst_snp_query)
+  
+  # Fetches recombination rate data.
+  recomb_query <- "SELECT chr, window, recombination_rate FROM window100k_recombination_statistics"
+  recomb_data <- dbGetQuery(con, recomb_query)
+  
+  # Ensures consistent data types for joining.
+  fst_snp_data$chr <- as.integer(fst_snp_data$chr)
+  fst_snp_data$window <- as.integer(fst_snp_data$window)
+  recomb_data$chr <- as.integer(recomb_data$chr)
+  recomb_data$window <- as.integer(recomb_data$window)
+  
+  # Calculates and merges lambda data for both sexes.
+  female_data <- calculate_lambda("female")
+  male_data <- calculate_lambda("male")
+  lambda_data <- rbind(
+    cbind(female_data, Sex = "Female"),
+    cbind(male_data, Sex = "Male")
+  )
+  
+  lambda_data$chr <- as.integer(lambda_data$chr)
+  lambda_data$window <- as.integer(lambda_data$window)
+  
+  # Summarizes lambda values by window and sex.
+  lambda_summary <- lambda_data %>%
+    group_by(chr, window, Sex) %>%
+    summarize(lambda = mean(lambda), .groups = "drop")
+  
+  # Joins all data tables.
+  merged_data <- lambda_summary %>%
+    left_join(fst_snp_data, by = c("chr", "window"))
+  
+  final_data <- merged_data %>%
+    left_join(recomb_data, by = c("chr", "window"))
+  
+  return(final_data)
+}
+
+# Fetches all data and calculates overall lambda.
+complete_data <- fetch_all_data(con)
+overall_lambda <- complete_data %>%
+  group_by(chr, window) %>%
+  summarize(
+    lambda = mean(lambda),
+    WEIGHTED_FST = mean(WEIGHTED_FST),
+    snps = mean(snps),
+    recombination_rate = mean(recombination_rate),
+    .groups = "drop"
+  ) %>%
+  mutate(Sex = "Overall")
+
+# Combines sex-specific and overall lambda data.
+complete_data_with_overall <- rbind(complete_data, overall_lambda)
+head(complete_data_with_overall)
 #--------------------------------------------------------------------
 # Create the base table structure for integrated genetic analysis
 #--------------------------------------------------------------------

@@ -330,10 +330,10 @@ dbSendQuery(con, sql2)
 
 
 #------------------------------------------------------------------------------------------------------------
-# QTL effect analysis
-# Calculate deviations from mean trait values for mutant inheritance patterns compared to reference patterns,
-# including sex-specific differences in counts and trait values
-# This analysis identifies genomic regions where inheritance pattern changes affect trait values (QTL mapping)
+# Analysis of Trait Variation by Inheritance Pattern
+# This section calculates the deviation in mean trait values between different inheritance patterns.
+# The analysis includes sex-specific differences and identifies genomic regions
+# where changes in inheritance patterns are associated with trait variation.
 #------------------------------------------------------------------------------------------------------------
 sql = "create table window100k_single_site_trait_stat_mutant_deviation_from_mean_all
 SELECT a.*,b.paternalinheritance as paternalinheritance_mutant,b.maternalinheritance as maternalinheritance_mutant,
@@ -350,9 +350,10 @@ where a.trait_id=b.trait_id and a.chr=b.chr and a.window=b.window and a.trait_id
 dbSendQuery(con, sql)
 
 
-# Filter QTL results for single-locus effects
-# Filter results to include only autosomal chromosomes (chr<23) and inheritance patterns differing by exactly one allele
-# This focuses the analysis on single QTL effects rather than epistatic interactions
+# Filtering for Single-Locus Effects
+# This step filters the results to include only autosomal chromosomes and inheritance pattern
+# pairs that differ by exactly one allele. This focuses the analysis on the effects of
+# single-locus changes rather than on more complex interactions.
 sql = "create table window100k_single_site_trait_stat_mutant_deviation_from_mean
 select * from window100k_single_site_trait_stat_mutant_deviation_from_mean_all
 where abs(paternalinheritance+maternalinheritance-paternalinheritance_mutant-maternalinheritance_mutant)<2 and 
@@ -364,3 +365,4 @@ sql1 = "create index idx1 on window100k_single_site_trait_stat_mutant_deviation_
 sql2 = "create index idx2 on window100k_single_site_trait_stat_mutant_deviation_from_mean(chr,window,paternalinheritance,maternalinheritance,paternalinheritance_mutant,maternalinheritance_mutant,trait_id);"
 dbSendQuery(con, sql1)
 dbSendQuery(con, sql2)
+
