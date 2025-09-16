@@ -95,13 +95,9 @@ The hybrid effect was defined as the difference in phenotypic means of the homoz
 The hybrid effect size was calculated in a coordiante system centered at the population mean of a sex:
 
 ```
-Dev(homozygote) = abs(Mean-of-homozygote - Mean-of-a-sex) / Mean-of-a-sex
-Dev(heterozygote) = abs(Mean-of-heterozygote - Mean-of-a-sex) / Mean-of-a-sex
-
-Standardized hybrid effect size = abs( Dev(homozygote) - Dev(heterozygote) ) 
+Standardized hybrid effect size = abs(Mean-of-homozygote - Mean-of-heterozygote) / Mean-of-a-sex
 ```
-
-This convertion enables direct comparison across all 135 traits with different units and scales.
+Here, the Mean-of-homozygote and Mean-of-heterozygote represent the phenotypic means of individuals of a sex carrying the homozygous and heterozygous genotypes in a 100-kb sliding window. The Mean-of-a-sex is the phenotypic mean of all individuals from the sex irrespective of their genotypes in this genomic window. This convertion enables direct comparison across all 135 traits with different units and scales.
 
 ### 4.3 Exponential distribution of hybrid effect size and λ parameter estimation
 
