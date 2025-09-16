@@ -121,6 +121,7 @@ Here, we chose an empricial threshold at λ = 33.5 (close to the λ mean for the
 - **Inbreeding depression**: λ < 33.5 and Fst < 0.095 (large effects in weakly differentiated regions)
 - **Hybrid depression**: λ < 33.5 and Fst > 0.285 (large effects in highly differentiated regions)
 
+For λ calculation across 20 bins, please refer to the R script '5. construction of genetic diversity and heterosis analysis tables.R'.
 
 ### 4.5 Sex difference in hybrid effect variation
 
