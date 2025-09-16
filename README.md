@@ -46,7 +46,7 @@ We applied several steps to determine the genomic transmission in the LW-MIN fam
 
 The  *5*, *6*, *11*, and *12* were designed to indicate the inheritance of LW (odd number) or MIN (even number) alleles in the paternal and maternal genomes of the F2. The recombination events were determined by finding a boundary haborbing allele changes, for example from *5* to *6* on the paternal chromosome with an assigned number *3*. 
 
-For details, please see the implementation of the three R functions.
+For details, please see the implementation of the three R functions. 'sqldf' R package is required for conducting the analysis.
 
 The genomic transmission for all SNPs were generated in the f2.inheritance.txt file with the following format:
 ```
