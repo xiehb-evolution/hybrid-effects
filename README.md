@@ -25,7 +25,7 @@ f2	family	trait_id	trait_name	trait_value
 ## 2. Genotyping and phasing
 For all the F0, F1, and F2, the genomes were determined using the Illumina SNP60 BeadChip. The genomic data is available in the file "sscrofa11.data.zip". The coordinates were shown in the genome build of Sscrofa 11.1.
 
-We performed the haplotype inference for the whole LW-MIN family using the  shapeit software.
+We performed the haplotype inference for the whole LW-MIN family using the shapeit software.
 
 ```
 for i in `seq 1 18`
@@ -107,7 +107,7 @@ The density plot of hybrid effect size are presented in the figure below, with f
 
 ![image](https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/figureS1_00.png)
 
-The distribution of hybrid effect sizes was fitted to exponential distributions using the `fitdistrplus` R package. The rate parameter (λ) of exponential distribution was estimated. To accurately investigate the hybrid effect in sexes, the λ parameter estimation was conducted separately for the male and female populations. The λ was estiamted using hybrid effect size < 0.3.
+The distribution of hybrid effect sizes was fitted to exponential distributions using the `fitdistrplus` R package. The rate parameter (λ) of exponential distribution was estimated. To accurately investigate the hybrid effect in sexes, the λ parameter estimation was conducted separately for the male and female populations. The λ was estiamted on data with hybrid effect size < 0.3.
 
 ### 4.4 Interplay of genetic differentiation and recombination in hybrid effect transition
 The hybrid effect variation was explored across 100-kb autosomal windows under different levels of genetic differentiation (*F*<sub>ST</sub>). The genomic windows were classified into 20 bins according to their *F*<sub>ST</sub> values calculated between the LW and MIN founder populations using the whole genome resequencing data. The λ for the exponential distribution of hybrid effects and the mean recombination rate were calculated for each bin of the autosomal windows. The genomic transition of hybrid effects were examined according to the variation of the λ parameters across bins. The following figure shows a hump-shaped distribution of the λ and a positive correlation between recombination rates and λ. The R script is provided in the file "figure1.R".
