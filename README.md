@@ -103,7 +103,7 @@ The hybrid effect data was prepared using the R script of '2. F2 inheritance fra
 
 ### 4.3 Exponential distribution of hybrid effect size and λ parameter estimation
 
-The density plot of hybrid effect size are presented in the figure below, with figure A indicating the size distribution in males and figure B indicating the size distribution in females. All the data from 135 traits were combined to illustrate the exponential distributions of the hybrid effect size.
+The density plots of hybrid effect size are presented in the figure below, with figure A indicating the size distribution in males and figure B indicating the size distribution in females. All the data from 135 traits were combined to illustrate the exponential distributions of the hybrid effect size.
 
 ![image](https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/figureS1_00.png)
 
