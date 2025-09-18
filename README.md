@@ -101,7 +101,7 @@ Here, the *Mean-of-homozygote* and *Mean-of-heterozygote* represent the phenotyp
 
 The hybrid effect data was prepared using the R script of '2. F2 inheritance fragment processing and trait association preparation.R'. The results were stored in a MySQL table 'window100k_single_site_trait_stat_mutant_deviation_from_mean_all'.
 
-### 4.3 Exponential distribution of hybrid effect size and λ parameter estimation
+### 4.3 Exponential distribution of hybrid effect and λ parameter estimation
 
 The density plots of hybrid effect size are presented in the figure below, with figure A indicating the size distribution in males and figure B indicating the size distribution in females. All the data from 135 traits were combined to illustrate the exponential distributions of the hybrid effect size.
 
