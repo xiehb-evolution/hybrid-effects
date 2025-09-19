@@ -119,7 +119,7 @@ According to Ronald Fisher's geometric model (FGM, please see **THE GENETICAL TH
 Here, we chose an empricial threshold at λ = 33.5 (close to the λ mean for the 20 bins) to define three distinct types of hybrid effect:
 - **Hybrid vigor**: λ > 33.5 (small effects in regions showing mild-to-moderate levels of differentiation and the highest recombiantion rates)
 - **Inbreeding depression**: λ < 33.5 and *F*<sub>ST</sub> < 0.095 (large effects in weakly differentiated regions)
-- **Hybrid depression**: λ < 33.5 and *F*<sub>ST</sub> > 0.285 (large effects in highly differentiated regions)
+- **Hybrid depression**: λ < 33.5 and *F*<sub>ST</sub> > 0.286 (large effects in highly differentiated regions)
 
 For λ calculation across 20 bins, please refer to the R script '5. construction of genetic diversity and heterosis analysis tables.R'.
 
