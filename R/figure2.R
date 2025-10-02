@@ -83,23 +83,22 @@ plot_A <- ggplot(lambda_data, aes(x = fst_midpoint)) +
               method = "loess", span = 0.9, se = TRUE, alpha = 0.1, size = 1.0) +
   geom_smooth(aes(y = lambda_female, color = "Female", fill = "Female"),
               method = "loess", span = 0.9, se = TRUE, alpha = 0.1, size = 1.0) +
- 
-  geom_point(aes(y = lambda_male, color = "Male", shape = "Male"), 
-             alpha = 0.7, size = 3.5) +
-  geom_point(aes(y = lambda_female, color = "Female", shape = "Female"), 
-             alpha = 0.7, size = 3.5) +
   
-  scale_color_manual(name = "Sex",
-                     values = c(Male = "#4682B4", Female = "#FF69B4"),
-                     guide = guide_legend(override.aes = list(
-                       shape = c(16, 17),
-                       linetype = c(1, 1)
-                     ))) +
-  scale_fill_manual(name = "Sex", 
-                    values = c(Male = "#4682B4", Female = "#FF69B4"),
-                    guide = "none") +
-  scale_shape_manual(values = c(Male = 16, Female = 17), guide = "none") +
-  scale_linetype_manual(values = c(Male = 1, Female = 1), guide = "none") +
+  geom_point(aes(y = lambda_male, color = "Male"), 
+             shape = 16, alpha = 0.7, size = 3.5) +  
+  geom_point(aes(y = lambda_female, color = "Female"), 
+             shape = 17, alpha = 0.7, size = 3.5) +  
+  
+  scale_color_manual(
+    name = "Sex",
+    values = c(Male = "#4682B4", Female = "#FF69B4"),
+    breaks = c("Male", "Female")
+  ) +
+  scale_fill_manual(
+    name = "Sex", 
+    values = c(Male = "#4682B4", Female = "#FF69B4"),
+    guide = "none"
+  ) +
   
   labs(x = expression(F[ST]), y = expression(lambda)) +
   sci_theme(11) +
@@ -108,9 +107,8 @@ plot_A <- ggplot(lambda_data, aes(x = fst_midpoint)) +
     legend.background = element_rect(fill = "white", color = "gray90", size = 0.5),
     legend.key = element_blank()
   )
+
 plot_A
-
-
 
 #######################################################################################################
 # Get rare SNP data (FST grouping)
