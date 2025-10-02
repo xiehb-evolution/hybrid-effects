@@ -127,7 +127,7 @@ For λ calculation across 20 bins, please refer to the R script '5. construction
 
 The λ values were calculated independently for F2 males and females to reveal the sex difference in hybrid effect variation. The following figure shows the sex difference in the distribution of λ parameters. The constitutively lower λ values across different bins pinpoint an evolutionary inferior position of females in hybridization. The R script is provided in the file "figure2.R".
 
-<img src="https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/sex_difference.jpg" width="40%">
+<img src="https://github.com/xiehb-evolution/hybrid-effects/blob/main/tmp/sex_difference.jpg" width="50%">
 
 ### 4.6 Database implementation and quality control
 
