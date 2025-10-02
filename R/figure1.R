@@ -18,11 +18,11 @@ library(DescTools)
 library(fitdistrplus)
 library(RMySQL)
 library(sqldf)
-
+setwd("D:\\heterosis\\project\\wu")
 # Set global options
 options(scipen = 999) 
 set.seed(42)
-sci_theme <- function(base_size = 10) {
+sci_theme <- function(base_size = 16) {
   theme_bw(base_size = base_size) +
     theme(
       plot.title = element_text(size = base_size*1.2, hjust = 0.5, face = "bold"),
@@ -61,7 +61,7 @@ format_pvalue <- function(p, digits = 2) {
 }
 
 # Function to add panel labels
-add_panel_labels <- function(plot, label, x = -0.07, y = 1.07, size = 12, fontface = "bold") {
+add_panel_labels <- function(plot, label, x = -0.07, y = 1.07, size = 14, fontface = "bold") {
   plot + annotation_custom(
     grob = textGrob(label, x = unit(x, "npc"), y = unit(y, "npc"), 
                     gp = gpar(fontsize = size, fontface = fontface))
@@ -111,16 +111,9 @@ panel_2a <- ggplot(fst_lambda_data, aes(x = fst, y = lambda)) +
     x = expression(F[ST]), 
     y = expression(lambda)
   ) +
-  theme(
-    axis.title = element_text(face = "bold", size = 11, color = "#212529"),
-    axis.text = element_text(size = 9, color = "#495057"),
-    plot.title = element_text(face = "bold", size = 12, color = "#212529"),
-    plot.subtitle = element_text(size = 9, color = "#6C757D", margin = margin(b = 15)),
-    axis.line = element_line(color = "#343A40", size = 0.3)
-  ) +
   sci_theme()+
   theme(
-    legend.position = c(0.95, 0.95),
+    legend.position = c(0.99, 0.95),
     legend.justification = c("right", "top")
   ) +
   guides(
@@ -132,7 +125,6 @@ panel_2a <- ggplot(fst_lambda_data, aes(x = fst, y = lambda)) +
     )
   )
 panel_2a
-
 
 
 # Panel B: Recombination rate vs Lambda
@@ -168,7 +160,7 @@ panel_2b <- ggplot(plot1data, aes(x = rec, y = lambda)) +
            label = sprintf("r = %.3f, %s", 
                            rec_lambda_cor$estimate, 
                            format_pvalue(rec_lambda_cor$p.value)),
-           hjust = 0, vjust = 1, size = 3.5) +
+           hjust = 0, vjust = 1, size = 5) +
   sci_theme()
 panel_2b
 
@@ -222,7 +214,7 @@ inbreeding_data <- hybrid_effect_data %>%
   arrange(desc(lambda))
 inbreeding_data$chr <- factor(inbreeding_data$chr, levels = 1:18)
 
-panel_3d <- ggplot(inbreeding_data, aes(x = chr, y = window)) +
+panel_3d <- ggplot(inbreeding_data, aes(x = chr, y = window/10)) +
   geom_tile(aes(fill = lambda), width = 0.8) +
   scale_fill_viridis_c(option = "magma", 
                        name = expression(lambda), 
@@ -243,7 +235,7 @@ hybrid_dep_data <- hybrid_effect_data %>%
   arrange(desc(lambda))
 hybrid_dep_data$chr <- factor(hybrid_dep_data$chr, levels = 1:18)
 
-panel_3e <- ggplot(hybrid_dep_data, aes(x = chr, y = window)) +
+panel_3e <- ggplot(hybrid_dep_data, aes(x = chr, y = window/10)) +
   geom_tile(aes(fill = lambda), width = 0.8) +
   scale_fill_viridis_c(option = "magma", 
                        name = expression(lambda), 
@@ -266,10 +258,9 @@ panel_3d <- panel_3d +
     legend.margin = margin(10, 10, 10, 10),
     legend.box.margin = margin(5, 5, 5, 5),
     legend.background = element_rect(fill = "white", color = "gray90", size = 0.2),
-    legend.title = element_text(size = 8),
-    legend.text = element_text(size = 7),
     legend.key.size = unit(0.4, "cm")
   )
+panel_3d
 panel_3e <- panel_3e + 
   theme(
     legend.position = c(0.95, 0.95),
@@ -278,11 +269,9 @@ panel_3e <- panel_3e +
     legend.margin = margin(10, 10, 10, 10),
     legend.box.margin = margin(5, 5, 5, 5),
     legend.background = element_rect(fill = "white", color = "gray90", size = 0.2),
-    legend.title = element_text(size = 8),
-    legend.text = element_text(size = 7),
     legend.key.size = unit(0.4, "cm")
   )
-
+panel_3e
 ####################################################################################################################
 panel_2a <- panel_2a + labs(title = NULL)
 panel_2a
@@ -298,12 +287,21 @@ figure3 <- plot_grid(
   ncol = 2, 
   align = 'v',
   labels = c("A", "B", "C", "D"),
-  label_size = 16,
+  label_size = 18,
   label_fontfamily = "sans",
   label_fontface = "bold",
   hjust = -0.2,
   vjust = 1.1
 )
 figure3
+
+
 ggsave("figure1_new.pdf", figure3, width = 12, height = 10, device = cairo_pdf)
 getwd()
+
+
+ggsave("Figure1.tif", figure3, 
+       width = 12, height = 10, dpi = 600,
+       device = "tiff", compression = "lzw")
+
+
