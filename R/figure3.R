@@ -25,7 +25,7 @@ clean_theme <- theme_classic() +
     legend.background = element_rect(fill = "white", color = NA),
     plot.margin = margin(5, 10, 5, 30)
   )
-sci_theme <- function(base_size = 10) {
+sci_theme <- function(base_size = 16) {
   theme_bw(base_size = base_size) +
     theme(
       plot.title = element_text(size = base_size*1.2, hjust = 0.5, face = "bold"),

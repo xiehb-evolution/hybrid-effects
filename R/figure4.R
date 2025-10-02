@@ -24,7 +24,33 @@ clean_theme <- theme_classic() +
     legend.background = element_rect(fill = "white", color = NA),
     plot.margin = margin(5, 10, 5, 30) 
   )
+sci_theme <- function(base_size = 16) {
+  theme_bw(base_size = base_size) +
+    theme(
+      plot.title = element_text(size = base_size*1.2, hjust = 0.5, face = "bold"),
+      plot.subtitle = element_text(size = base_size*1.1, hjust = 0.5),
+      
+      axis.title = element_text(size = base_size*1.1, face = "bold"),
+      axis.text = element_text(size = base_size*0.9, color = "black"),
+      axis.line = element_line(color = "black", size = 0.5),
+      axis.ticks = element_line(color = "black", size = 0.5),
+      
+      legend.title = element_text(size = base_size*1.0, face = "bold"),
+      legend.text = element_text(size = base_size*0.9),
+      legend.key.size = unit(0.8, "lines"),
+      legend.background = element_rect(fill = "white", color = "gray90"),
+      legend.margin = margin(2, 2, 2, 2),
+      
+      panel.grid.major = element_line(color = "gray90", size = 0.2),
+      panel.grid.minor = element_blank(),
+      panel.border = element_blank(),
 
+      strip.background = element_rect(fill = "gray95", color = "black", size = 0.5),
+      strip.text = element_text(size = base_size*1.0, face = "bold"),
+
+      plot.margin = margin(5, 5, 5, 5)
+    )
+}
 # Read data
 data <- dbGetQuery(con, "SELECT * FROM stat_dev_from_sex_mean_in_fst_bin2")
 data2 <- dbGetQuery(con, "SELECT * FROM hybrid_effect_analysis")
