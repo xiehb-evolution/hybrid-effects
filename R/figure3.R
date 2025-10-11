@@ -53,6 +53,7 @@ sci_theme <- function(base_size = 16) {
     )
 }
 
+
 # SQL Query to get data from database
 sql_query_from_file <- paste0("select c.fst_bin,a.lambda,sum(abs(b.malecount_diff+b.femalecount_diff))/count(*) as countdiff,
 sum(case b.malecount_diff+b.femalecount_diff>0 and d.malecount_diff+d.femalecount_diff>0 when 1 then 1 end) as count_increase,
@@ -194,25 +195,25 @@ combined_data <- bind_rows(
 combined_data$Group <- factor(combined_data$Group, levels = c("All", "Male", "Female"))
 
 plot3B <- ggplot(combined_data, aes(x = fst_midpoint, y = het_advantage_ratio, color = Group)) +
-  geom_point(aes(shape = Group), alpha = 0.8, size = 2) +
+  geom_point(aes(shape = Group), alpha = 0.8, size = 3.5) +
   geom_smooth(aes(fill = Group), method = "loess", se = TRUE, 
               alpha = 0.15, size = 0.8, span = 0.95) +
   geom_hline(yintercept = 1, linetype = "dotted", 
              color = "#7f8c8d", size = 0.5) +
   scale_color_manual(values = c(
-    "All" = "#27ae60",    # 绿色
-    "Male" = "#3366CC",   # 深蓝色
-    "Female" = "#CC3366"  # 粉红色
+    "All" = "#27ae60",    
+    "Male" = "#3366CC",   
+    "Female" = "#CC3366"  
   )) +
   scale_fill_manual(values = c(
-    "All" = "#27ae60",    # 绿色
-    "Male" = "#3366CC",   # 深蓝色
-    "Female" = "#CC3366"  # 粉红色
+    "All" = "#27ae60",    
+    "Male" = "#3366CC",   
+    "Female" = "#CC3366"  
   )) +
   scale_shape_manual(values = c(
-    "All" = 0,      # 空心圆形
-    "Male" = 19,    # 实心圆形
-    "Female" = 17   # 实心三角形
+    "All" = 0,      
+    "Male" = 19,    
+    "Female" = 17   
   )) +
   scale_y_continuous(
     trans = "log2", 
@@ -223,7 +224,7 @@ plot3B <- ggplot(combined_data, aes(x = fst_midpoint, y = het_advantage_ratio, c
     x = expression(F[ST]), 
     y = "Heterozygote advantage/disadvantage ratio"
   ) +
-  clean_theme+sci_theme(11)+
+  sci_theme()+
   # Position the legend inside the top-right corner of the plot
   theme(
     legend.position = c(0.95, 0.95),
@@ -231,6 +232,9 @@ plot3B <- ggplot(combined_data, aes(x = fst_midpoint, y = het_advantage_ratio, c
     legend.box.just = "right",
     legend.margin = margin(6, 6, 6, 6),
     legend.background = element_rect(fill = "white", color = "gray90", size = 0.2)
+  )+
+  theme(
+    axis.title.y = element_text(size = 14)
   )
 plot3B
 
@@ -251,7 +255,7 @@ plot3C <- ggplot(result_enhanced,
 
   geom_hline(yintercept = 1, linetype = "dashed", color = "gray", size = 0.5) +
   
-  geom_point(color = "#2980b9", size = 2, alpha = 0.7) +
+  geom_point(color = "#2980b9", size = 3.5, alpha = 0.7) +
   
   geom_smooth(method = "lm", color = "#c0392b", 
               fill = "#c0392b", alpha = 0.1, size = 0.7) +
@@ -271,17 +275,33 @@ plot3C <- ggplot(result_enhanced,
            x = min(result_enhanced$lambda, na.rm = TRUE), 
            y = max(result_enhanced$het_advantage_ratio, na.rm = TRUE),
            label = cor_text,
-           hjust = 0, vjust = 1, size = 3.5) +
+           hjust = 0, vjust = 1, size = 5) +
   
-  theme_minimal() +sci_theme(11)+
+  theme_minimal() +sci_theme()+
   theme(
     panel.grid.minor = element_blank(),
     panel.grid.major = element_line(color = "whitesmoke"),
     axis.title = element_text(face = "bold"),
-    plot.margin = margin(15, 15, 15, 15)
+    plot.margin = margin(15, 15, 15, 15) 
+  )+
+  theme(
+    axis.title.y = element_text(size = 14)
   )
 plot3C
 
+
+single_width <- 12 / 2  
+single_height <- 10 / 2 
+
+ggsave("figure3_b.pdf", plot3B, 
+       width = single_width, 
+       height = single_height, 
+       device = cairo_pdf)
+
+ggsave("figure3_c.pdf", plot3C, 
+       width = single_width, 
+       height = single_height, 
+       device = cairo_pdf)
 
 
 library(cowplot)
@@ -289,18 +309,24 @@ figure3 <- plot_grid(
   NULL, plot3B,plot3C,
   ncol = 3,
   align = 'hv',
-  labels = c("A", "B", "C"),  # B位置留空标签
-  label_size = 16,
+  labels = c("A", "B", "C"), 
+  label_size = 18,
   label_fontfamily = "sans",
   label_fontface = "bold",
   hjust = -0.2,
   vjust = 1.1,
   axis = "l",
-  rel_widths = c(1, 1, 1),  # 三列宽度相同
-  rel_heights = c(1, 1)  # 两行高度相同
+  rel_widths = c(1, 1, 1), 
+  rel_heights = c(1, 1) 
 ) +
   theme(
     plot.margin = margin(10, 10, 10, 10)
   )
 figure3
-ggsave("figure3.pdf", figure3, width = 18, height = 5)
+
+
+
+
+
+
+ggsave("figure3.pdf", figure3, width = 19, height = 6.5)

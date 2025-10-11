@@ -221,11 +221,11 @@ panel_3d <- ggplot(inbreeding_data, aes(x = chr, y = window/10)) +
                        direction = 1) +
   labs(
     x = "Chromosome",
-    y = "Window position",
+    y = "Window position (Mb)",
     title = "Genomic distribution of inbreeding depression"
   ) +
   sci_theme() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
 panel_3d
 
 
@@ -242,11 +242,11 @@ panel_3e <- ggplot(hybrid_dep_data, aes(x = chr, y = window/10)) +
                        direction = 1) +
   labs(
     x = "Chromosome",
-    y = "Window position",
+    y = "Window position (Mb)",
     title = "Genomic distribution of hybrid depression"
   ) +
   sci_theme() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
 panel_3e
 
 
@@ -295,13 +295,30 @@ figure3 <- plot_grid(
 )
 figure3
 
+setwd("D:/heterosis/project/wu/AI")
 
-ggsave("figure1_new.pdf", figure3, width = 12, height = 10, device = cairo_pdf)
-getwd()
+single_width <- 12 / 2  
+single_height <- 10 / 2 
 
+ggsave("figure1_a.pdf", panel_2a, 
+       width = single_width, 
+       height = single_height, 
+       device = cairo_pdf)
 
-ggsave("Figure1.tif", figure3, 
-       width = 12, height = 10, dpi = 600,
-       device = "tiff", compression = "lzw")
+ggsave("figure1_b.pdf", panel_2b, 
+       width = single_width, 
+       height = single_height, 
+       device = cairo_pdf)
+
+ggsave("figure1_c.pdf", panel_3d, 
+       width = single_width, 
+       height = single_height, 
+       device = cairo_pdf)
+
+ggsave("figure1_d.pdf", panel_3e, 
+       width = single_width, 
+       height = single_height, 
+       device = cairo_pdf)
+
 
 

@@ -24,33 +24,37 @@ clean_theme <- theme_classic() +
     legend.background = element_rect(fill = "white", color = NA),
     plot.margin = margin(5, 10, 5, 30) 
   )
-sci_theme <- function(base_size = 16) {
-  theme_bw(base_size = base_size) +
+
+clean_theme <- function(base_size = 16) {
+  theme_classic() +
     theme(
-      plot.title = element_text(size = base_size*1.2, hjust = 0.5, face = "bold"),
-      plot.subtitle = element_text(size = base_size*1.1, hjust = 0.5),
+      text = element_text(family = "Arial"),
       
-      axis.title = element_text(size = base_size*1.1, face = "bold"),
-      axis.text = element_text(size = base_size*0.9, color = "black"),
+      plot.title = element_text(size = base_size * 1.2, hjust = 0.5, face = "bold"),
+      plot.subtitle = element_text(size = base_size * 1.1, hjust = 0.5),
+      
+      axis.title = element_text(size = base_size * 1.1, face = "bold"),
+      axis.text = element_text(size = base_size * 0.9, color = "black"),
       axis.line = element_line(color = "black", size = 0.5),
       axis.ticks = element_line(color = "black", size = 0.5),
-      
-      legend.title = element_text(size = base_size*1.0, face = "bold"),
-      legend.text = element_text(size = base_size*0.9),
-      legend.key.size = unit(0.8, "lines"),
-      legend.background = element_rect(fill = "white", color = "gray90"),
-      legend.margin = margin(2, 2, 2, 2),
-      
-      panel.grid.major = element_line(color = "gray90", size = 0.2),
-      panel.grid.minor = element_blank(),
+  
+      panel.background = element_rect(fill = "white", color = NA),
+      panel.grid = element_blank(),
       panel.border = element_blank(),
-
+ 
+      legend.title = element_text(size = base_size * 1.0, face = "bold"),
+      legend.text = element_text(size = base_size * 0.9),
+      legend.key.size = unit(0.8, "lines"),
+      legend.background = element_rect(fill = "white", color = NA),
+      legend.margin = margin(2, 2, 2, 2),
+     
       strip.background = element_rect(fill = "gray95", color = "black", size = 0.5),
-      strip.text = element_text(size = base_size*1.0, face = "bold"),
-
+      strip.text = element_text(size = base_size * 0.9, face = "bold"),
+      
       plot.margin = margin(5, 5, 5, 5)
     )
 }
+
 # Read data
 data <- dbGetQuery(con, "SELECT * FROM stat_dev_from_sex_mean_in_fst_bin2")
 data2 <- dbGetQuery(con, "SELECT * FROM hybrid_effect_analysis")
@@ -58,29 +62,31 @@ data3 <- dbGetQuery(con, "SELECT * FROM stat_dev_from_sex_mean_in_fst_bin")
 
 
 # Plot A: Male and female differences across FST values
-plotA <- ggplot(data) +
-  geom_smooth(aes(x = fst_midpoint, y = malediff, color = "Male"), 
-              method = "loess", span = 1.25, se = TRUE, linetype = "solid", size = 0.8) +
-  geom_smooth(aes(x = fst_midpoint, y = femalediff, color = "Female"), 
-              method = "loess", span = 1.25, se = TRUE, linetype = "solid", size = 0.8) +
-  geom_point(aes(x = fst_midpoint, y = malediff, color = "Male"), 
-             alpha = 0.8, size = 2, shape = 16) +
-  geom_point(aes(x = fst_midpoint, y = femalediff, color = "Female"), 
-             alpha = 0.8, size = 2, shape = 17) +
-  scale_color_manual(values = c("Male" = "#3366CC", "Female" = "#CC3366"),
-                     name = NULL) +
+data_long_A <- data %>%
+  pivot_longer(
+    cols = c(malediff, femalediff),
+    names_to = "gender",
+    values_to = "diff"
+  ) %>%
+  mutate(
+    gender = ifelse(gender == "malediff", "Male", "Female")
+  )
+plotA <- ggplot(data_long_A, aes(x = fst_midpoint, y = diff * 100, color = gender)) +
+  geom_smooth(method = "loess", span = 1.25, se = TRUE, linetype = "solid", size = 0.8, alpha = 0.2) +
+  geom_point(alpha = 0.8, size = 3.5) +
+  scale_color_manual(values = c("Male" = "#3366CC", "Female" = "#CC3366")) +
   labs(
     x = expression(F[ST]),
-    y = "MPH (%)"
+    y = "MPH (%)", 
+    color = "Sex"
   ) +
-  clean_theme +
-  scale_y_continuous(labels = function(y) paste0(y * 100)) +
+  clean_theme() +
+  scale_y_continuous(labels = function(y) sprintf("%.2f", y)) +
   theme(
     legend.position = c(0.2, 0.9),
     legend.background = element_rect(fill = "white", color = NA)
   )
 plotA
-
 
 # Plot B: Relationship between Lambda and sex differences
 cor_result_B_male <- cor.test(data$malediff, data$lambda)
@@ -98,7 +104,7 @@ print(range(data_long$diff * 100))
 plotB <- ggplot(data_long, aes(y = diff * 100, x = lambda, color = gender)) +
   geom_smooth(method = "lm", linetype = "solid", size = 0.8, se = TRUE, alpha = 0.2) +
   scale_color_manual(values = c("Female" = "#CC3366", "Male" = "#3366CC")) +
-  geom_point(alpha = 0.8, size = 1.5) +
+  geom_point(alpha = 0.8, size = 3.5) +
   labs(y = "MPH (%)", x = expression(lambda), color = "Sex") +
   annotate(
     "text", 
@@ -106,14 +112,15 @@ plotB <- ggplot(data_long, aes(y = diff * 100, x = lambda, color = gender)) +
     x = 33.3,
     label = sprintf("Male: r = %.3f, p = %.2e\nFemale: r = %.3f, p = %.2e", 
                     r_value_B_male, p_value_B_male, r_value_B_female, p_value_B_female),
-    size = 2.5, 
-    hjust = 0
+    size = 4, 
+    hjust = 0.3,
+    vjust = -0.1 
   ) +
   coord_cartesian( 
     xlim = range(data_long$lambda, na.rm = TRUE),
     ylim = range(data_long$diff * 100, na.rm = TRUE)
   ) +
-  clean_theme +
+  clean_theme() +
   theme(legend.position = c(0.8, 0.9))
 plotB
 
@@ -141,7 +148,7 @@ data_long <- rbind(
 plotC <- ggplot(data_long, aes(x = het_advantage_ratio, y = diff*100, color = gender)) +
   geom_smooth(method = "lm", linetype = "solid", size = 0.8, se = TRUE, alpha = 0.2) +
   scale_color_manual(values = c("Female" = "#CC3366", "Male" = "#3366CC")) +
-  geom_point(alpha = 0.8, size = 1.5) +
+  geom_point(alpha = 0.8, size = 3.5) +
   labs(
     x = "Heterozygote advantage/disadvantage ratio", 
     y = "MPH (%)", 
@@ -153,9 +160,10 @@ plotC <- ggplot(data_long, aes(x = het_advantage_ratio, y = diff*100, color = ge
     y = 2.6,
     label = sprintf("Male: r = %.3f, p = %.2e\nFemale: r = %.3f, p = %.2e", 
                     r_value_C_male, p_value_C_male, r_value_C_female, p_value_C_female),
-    size = 2.5, hjust = 0
+    size = 4, hjust = 0.4,
+    vjust = -0.1 
   ) +
-  clean_theme +
+  clean_theme() +
   theme(legend.position = c(0.8, 0.9))
 plotC
 
@@ -166,19 +174,20 @@ plotC
 sql = "select fst_midpoint, malediff as diff, 'Male' as sex from stat_dev_from_sex_mean_in_fst_bin 
        union select fst_midpoint, femalediff as diff, 'Female' as sex from stat_dev_from_sex_mean_in_fst_bin"
 figure4ddata = dbGetQuery(con, sql)
+
 plotD <- ggplot(data = figure4ddata, aes(x = fst_midpoint, y = diff*100, colour = sex)) + 
   scale_color_manual(values = c("Female" = "#CC3366", "Male" = "#3366CC")) +
   geom_smooth(method = "loess", span = 1.25) +
-  geom_point(size = 1.5) + 
+  geom_point(alpha = 0.8, size = 3.5) + 
   labs(
     y = "Homozygote phenotypic difference (%)",
     x = expression(F[ST]),
     colour = "Sex" 
   ) +
-  clean_theme + 
+  scale_y_continuous(labels = function(x) sprintf("%.2f", x)) +
+  clean_theme() + 
   theme(legend.position = c(0.2, 0.85))
 plotD
-
 
 add_outside_labels <- function(plot, label, 
                                x_offset = 0.05,  
@@ -205,21 +214,63 @@ add_outside_labels <- function(plot, label,
   
   return(plot_with_label)
 }
-plotA_labeled <- add_outside_labels(plotA, "A")
-plotB_labeled <- add_outside_labels(plotB, "B")
-plotC_labeled <- add_outside_labels(plotC, "C")
-plotD_labeled <- add_outside_labels(plotD, "D")
-combined_plot <- plot_grid(
-  plotA_labeled, plotB_labeled, 
-  plotC_labeled, plotD_labeled,
-  ncol = 2,
-  align = "hv"  
-)
+#plotA_labeled <- add_outside_labels(plotA, "A")
+#plotB_labeled <- add_outside_labels(plotB, "B")
+#plotC_labeled <- add_outside_labels(plotC, "C")
+#plotD_labeled <- add_outside_labels(plotD, "D")
+#combined_plot <- plot_grid(
+#  plotA_labeled, plotB_labeled, 
+#  plotC_labeled, plotD_labeled,
+#  ncol = 2,
+#  align = "hv"  
+#)
 
 plotA
 plotB
 plotC
 plotD
 combined_plot
-ggsave("combined_figure.png", combined_plot, width = 10, height = 6, dpi = 300)
-ggsave("figure4.pdf", combined_plot, width = 10, height = 6, device = cairo_pdf)
+
+figure4 <- plot_grid(
+  plotA, plotB, 
+  plotC, plotD,
+  ncol = 2,
+  align = "hv" ,
+  labels = c("A", "B", "C", "D"), 
+  label_size = 18,
+  label_fontfamily = "sans",
+  label_fontface = "bold",
+  hjust = -0.2,
+  vjust = 1.1,
+  axis = "l",
+  rel_widths = c(1, 1, 1), 
+  rel_heights = c(1, 1) 
+) +
+  theme(
+    plot.margin = margin(10, 10, 10, 10)
+  )
+figure4
+
+single_width <- 12 / 2  
+single_height <- 10 / 2 
+
+ggsave("figure4_a.pdf", plotA, 
+       width = single_width, 
+       height = single_height, 
+       device = cairo_pdf)
+
+ggsave("figure4_b.pdf", plotB, 
+       width = single_width, 
+       height = single_height, 
+       device = cairo_pdf)
+
+ggsave("figure4_c.pdf", plotC, 
+       width = single_width, 
+       height = single_height, 
+       device = cairo_pdf)
+
+ggsave("figure4_d.pdf", plotD, 
+       width = single_width, 
+       height = single_height, 
+       device = cairo_pdf)
+

@@ -12,10 +12,11 @@ sci_theme <- function(base_size = 16) {
     theme(
       plot.title = element_text(size = base_size*1.2, hjust = 0.5, face = "bold"),
       plot.subtitle = element_text(size = base_size*1.1, hjust = 0.5),
+      plot.caption = element_text(size = base_size*0.8, hjust = 0),
       
       axis.title = element_text(size = base_size*1.1, face = "bold"),
       axis.text = element_text(size = base_size*0.9, color = "black"),
-      axis.line = element_line(color = "black", size = 0.5), 
+      axis.line = element_line(color = "black", size = 0.5),  
       axis.ticks = element_line(color = "black", size = 0.5),
       
       legend.title = element_text(size = base_size*1.0, face = "bold"),
@@ -26,7 +27,7 @@ sci_theme <- function(base_size = 16) {
       
       panel.grid.major = element_line(color = "gray90", size = 0.2),
       panel.grid.minor = element_blank(),
-      panel.border = element_blank(),
+      panel.border = element_blank(),  
       
       strip.background = element_rect(fill = "gray95", color = "black", size = 0.5),
       strip.text = element_text(size = base_size*1.0, face = "bold"),
@@ -79,29 +80,30 @@ lambda_summary_bin <- lambda_data %>%
   arrange(mean_fst_midpoint)
 
 plot_A <- ggplot(lambda_data, aes(x = fst_midpoint)) +
+  
   geom_smooth(aes(y = lambda_male, color = "Male", fill = "Male"),
               method = "loess", span = 0.9, se = TRUE, alpha = 0.1, size = 1.0) +
   geom_smooth(aes(y = lambda_female, color = "Female", fill = "Female"),
               method = "loess", span = 0.9, se = TRUE, alpha = 0.1, size = 1.0) +
   
   geom_point(aes(y = lambda_male, color = "Male"), 
-             shape = 16, alpha = 0.7, size = 3.5) +  
+             shape = 16, alpha = 0.7, size = 3.5) + 
   geom_point(aes(y = lambda_female, color = "Female"), 
-             shape = 17, alpha = 0.7, size = 3.5) +  
+             shape = 17, alpha = 0.7, size = 3.5) + 
   
   scale_color_manual(
     name = "Sex",
-    values = c(Male = "#4682B4", Female = "#FF69B4"),
+    values = c(Male = "#3366CC", Female = "#CC3366"),
     breaks = c("Male", "Female")
   ) +
   scale_fill_manual(
     name = "Sex", 
-    values = c(Male = "#4682B4", Female = "#FF69B4"),
+    values = c(Male = "#3366CC", Female = "#CC3366"),
     guide = "none"
   ) +
   
   labs(x = expression(F[ST]), y = expression(lambda)) +
-  sci_theme(11) +
+  sci_theme() +
   theme(
     legend.position = c(0.85, 0.85),
     legend.background = element_rect(fill = "white", color = "gray90", size = 0.5),
@@ -109,6 +111,7 @@ plot_A <- ggplot(lambda_data, aes(x = fst_midpoint)) +
   )
 
 plot_A
+
 
 #######################################################################################################
 # Get rare SNP data (FST grouping)
@@ -134,13 +137,13 @@ common_result <- dbGetQuery(con, sql_common)
 # Figure D: Relationship between female heterozygous loss of rare SNPs and FST
 rare_result$fst_value <- rare_result$fst * 0.01 
 plot_D <- ggplot(data=rare_result, aes(x=fst_value, y=bias)) +
-  geom_smooth(method="lm", color="#e74c3c", se=TRUE, size=0.8) +
+  geom_smooth(method="lm", color="#9b59b6", se=TRUE, size=0.8) +
   labs(
     x = expression(F[ST]), 
     y = "Female heterozygote deficiency"
   ) +
-  geom_point(size=3.5, alpha=0.8, color="#3498db") +
-  sci_theme(11)
+  geom_point(size=3.5, alpha=0.8, color="#2ecc71") +
+  sci_theme()
 plot_D
 
 # Calculating correlations for rare SNPs
@@ -148,7 +151,7 @@ rare_cor <- cor.test(rare_result$fst, rare_result$bias)
 plot_D <- plot_D + 
   annotate("text", x = min(rare_result$fst_value), y = max(rare_result$bias),
            label = sprintf("r = %.3f, %s", rare_cor$estimate, format_pvalue(rare_cor$p.value)),
-           hjust = 0, vjust = 1, size = 3.5)
+           hjust = 0, vjust = 1, size = 5) 
 plot_D
 
 
@@ -161,14 +164,14 @@ plot_E <- ggplot(data=common_result, aes(x=fst_value, y=bias)) +
     y = "Female heterozygote deficiency"
   ) +
   geom_point(size=3.5, alpha=0.8, color="#2ecc71") +
-  sci_theme(11)
+  sci_theme()
 
 # Calculating correlations for common SNPs
 common_cor <- cor.test(common_result$fst, common_result$bias)
 plot_E <- plot_E + 
   annotate("text", x = min(common_result$fst_value), y = max(common_result$bias),
            label = sprintf("r = %.3f, %s", common_cor$estimate, format_pvalue(common_cor$p.value)),
-           hjust = 0, vjust = 1, size = 3.5)
+           hjust = 0, vjust = 1, size = 5) 
 plot_E
 
 # Get raw data of rare SNPs (chromosome-wide distribution)
@@ -213,8 +216,8 @@ all_bias_values <- c(rare_raw$bias, common_raw$bias)
 bias_range <- range(all_bias_values, na.rm = TRUE)
 bias_limits <- c(-max(abs(bias_range)), max(abs(bias_range)))
 
-female_color <- "#FF5252" 
-male_color <- "#4169E1" 
+female_color <- "#CC3366" 
+male_color <- "#3366CC" 
 zero_grey <- "#F5F5F5" 
 
 # Figure B: Rare SNP Heatmap - Uses the same legend criteria
@@ -226,14 +229,16 @@ plot_B <- ggplot(rare_raw, aes(x = pos_index/10, y = chr, fill = bias)) +
     mid = zero_grey,
     high = male_color,
     limits = bias_limits,
-    name = "Sex bias",
+    name = "Sex difference",
     guide = guide_colorbar(
       frame.colour = "black",
       ticks.colour = "black",
       frame.linewidth = 0.5,
       ticks.linewidth = 0.5,
       barwidth = 0.6,
-      barheight = 6
+      barheight = 6,
+      title.theme = element_text(size = 14, face = "bold"),
+      label.theme = element_text(size = 12)
     )
   ) +
   labs(
@@ -243,26 +248,20 @@ plot_B <- ggplot(rare_raw, aes(x = pos_index/10, y = chr, fill = bias)) +
   ) +
   scale_x_continuous(expand = c(0,0)) +
   scale_y_discrete(expand = c(0,0)) +
-  sci_theme(12) + 
+  sci_theme() + 
   theme(
     plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
-    axis.title.x = element_text(face = "bold", size = 12, margin = margin(t = 10)),
-    axis.title.y = element_text(face = "bold", size = 12, margin = margin(r = 10)),
+    
     legend.position = c(0.97, 0.4),
     legend.justification = c(1, 0.5),
-    legend.title = element_text(face = "bold", size = 11),
-    legend.text = element_text(size = 10),
-    legend.box.just = "right",
-    legend.margin = margin(0.5, 0.5, 0.5, 0.5),
-    legend.title.align = 0.5,
-    panel.background = element_rect(fill = "white"),
+    
+    legend.background = element_blank(),
+    legend.key = element_blank(),
+    
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
-
-    panel.border = element_blank(),
-    axis.line = element_line(colour = "black", linewidth = 0.8),
-    legend.background = element_blank(),
-    legend.key = element_blank()
+    
+    panel.background = element_rect(fill = "white")
   )
 plot_B
 
@@ -275,14 +274,16 @@ plot_C <- ggplot(common_raw, aes(x = pos_index/10, y = chr, fill = bias)) +
     mid = zero_grey,
     high = male_color,
     limits = bias_limits,
-    name = "Sex bias",
+    name = "Sex difference",
     guide = guide_colorbar(
       frame.colour = "black",
       ticks.colour = "black",
       frame.linewidth = 0.5,
       ticks.linewidth = 0.5,
       barwidth = 0.6,
-      barheight = 6
+      barheight = 6,
+      title.theme = element_text(size = 14, face = "bold"),
+      label.theme = element_text(size = 12)
     )
   ) +
   labs(
@@ -292,26 +293,20 @@ plot_C <- ggplot(common_raw, aes(x = pos_index/10, y = chr, fill = bias)) +
   ) +
   scale_x_continuous(expand = c(0,0)) +
   scale_y_discrete(expand = c(0,0)) +
-  sci_theme(12) +
+  sci_theme() + 
   theme(
     plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
-    axis.title.x = element_text(face = "bold", size = 12, margin = margin(t = 10)),
-    axis.title.y = element_text(face = "bold", size = 12, margin = margin(r = 10)),
+    
     legend.position = c(0.97, 0.4),
     legend.justification = c(1, 0.5),
-    legend.title = element_text(face = "bold", size = 11),
-    legend.text = element_text(size = 10),
-    legend.box.just = "right",
-    legend.margin = margin(0.5, 0.5, 0.5, 0.5),
-    legend.title.align = 0.5,
-    panel.background = element_rect(fill = "white"),
+    
+    legend.background = element_blank(),
+    legend.key = element_blank(),
+    
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
-
-    panel.border = element_blank(),
-    axis.line = element_line(colour = "black", linewidth = 0.8),
-    legend.background = element_blank(),
-    legend.key = element_blank()
+    
+    panel.background = element_rect(fill = "white")
   )
 plot_C
 
@@ -329,6 +324,51 @@ print(plot_D)
 print(plot_E)
 library(cowplot)
 
+
+
+
+
+single_width <- 12 / 2  
+single_height <- 10 / 2 
+
+ggsave("figure2_a.pdf", plot_A, 
+       width = single_width, 
+       height = single_height, 
+       device = cairo_pdf)
+
+ggsave("figure2_c.pdf", plot_B, 
+       width = single_width, 
+       height = single_height, 
+       device = cairo_pdf)
+
+ggsave("figure2_d.pdf", plot_C, 
+       width = single_width, 
+       height = single_height, 
+       device = cairo_pdf)
+
+ggsave("figure2_e.pdf", plot_D, 
+       width = single_width, 
+       height = single_height, 
+       device = cairo_pdf)
+
+
+ggsave("figure2_f.pdf", plot_E, 
+       width = single_width, 
+       height = single_height, 
+       device = cairo_pdf)
+
+
+
+
+
+
+
+
+
+
+
+
+
 figure2 <- plot_grid(
   plot_A, NULL, plot_B,
   plot_C, plot_D,
@@ -336,7 +376,7 @@ figure2 <- plot_grid(
   ncol = 3,
   align = 'hv',
   labels = c("A", "B", "C", "D", "E", "F"), 
-  label_size = 16,
+  label_size = 18,
   label_fontfamily = "sans",
   label_fontface = "bold",
   hjust = -0.2,
@@ -352,4 +392,16 @@ figure2
 getwd()
 ggsave("figure2_renew.png", figure2, width = 12, height = 12, dpi = 300)
 ggsave("figure2.pdf", figure2, width = 18, height = 10)
+ggsave("Figure2.tif", figure2, 
+       width = 18, height = 10, dpi = 600,
+       device = "tiff", compression = "lzw")
+
+
+
+getwd()
+ggsave("figure2_newA4.pdf", figure2, width = 210/25.4, height = (210/25.4)*(10/1), device = cairo_pdf)
+ggsave("Figure2_newA4.tif", figure2, 
+       width = 210/25.4, height = (210/25.4)*(12/12), dpi = 600,
+       device = "tiff", compression = "lzw")
+
 
