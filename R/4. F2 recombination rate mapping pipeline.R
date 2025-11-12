@@ -38,21 +38,18 @@ con <- dbConnect(dbDriver("MySQL"),
 # SQL query to create f2inheritance_100k_recombinations table
 sql_create_recombination_table = "
 CREATE TABLE f2inheritance_100k_recombinations AS
-SELECT chr, window,
-  SUM(CASE WHEN Pallelecount > 1 THEN 1 ELSE 0 END) AS Precombinations,
-  SUM(CASE WHEN Mallelecount > 1 THEN 1 ELSE 0 END) AS Mrecombinations,
-  SUM(CASE WHEN Mallelecount > 1 THEN 1 ELSE 0 END) + 
-  SUM(CASE WHEN Pallelecount > 1 THEN 1 ELSE 0 END) AS recombinations,
-  SUM(CASE WHEN Pallelecount > 1 AND f2 % 2 = 0 THEN 1 ELSE 0 END) AS Precombinations_female,
-  SUM(CASE WHEN Mallelecount > 1 AND f2 % 2 = 0 THEN 1 ELSE 0 END) AS Mrecombinations_female,
-  SUM(CASE WHEN Mallelecount > 1 AND f2 % 2 = 0 THEN 1 ELSE 0 END) + 
-  SUM(CASE WHEN Pallelecount > 1 AND f2 % 2 = 0 THEN 1 ELSE 0 END) AS recombinations_female,
-  SUM(CASE WHEN Pallelecount > 1 AND f2 % 2 = 1 THEN 1 ELSE 0 END) AS Precombinations_male,
-  SUM(CASE WHEN Mallelecount > 1 AND f2 % 2 = 1 THEN 1 ELSE 0 END) AS Mrecombinations_male,
-  SUM(CASE WHEN Mallelecount > 1 AND f2 % 2 = 1 THEN 1 ELSE 0 END) + 
-  SUM(CASE WHEN Pallelecount > 1 AND f2 % 2 = 1 THEN 1 ELSE 0 END) AS recombinations_male
-FROM f2inheritance_100k_allelecount
-GROUP BY chr, window"
+SELECT 
+  chr,
+  FLOOR((pos1 + pos2) / 200000) as window,
+  COUNT(*) as total_events,
+  SUM(CASE WHEN class='P' THEN 1 ELSE 0 END) as paternal_events,
+  SUM(CASE WHEN class='M' THEN 1 ELSE 0 END) as maternal_events,
+  SUM(CASE WHEN class='P' AND f2 % 2=0 THEN 1 ELSE 0 END) as paternal_female,
+  SUM(CASE WHEN class='P' AND f2 % 2=1 THEN 1 ELSE 0 END) as paternal_male,
+  SUM(CASE WHEN class='M' AND f2 % 2=0 THEN 1 ELSE 0 END) as maternal_female,
+  SUM(CASE WHEN class='M' AND f2 % 2=1 THEN 1 ELSE 0 END) as maternal_male
+FROM f2recombination
+GROUP BY chr, FLOOR((pos1 + pos2) / 200000)"
 
 # Execute the query to create recombination statistics table
 cat("Creating f2inheritance_100k_recombinations table...\n")
@@ -153,3 +150,4 @@ print(summary2)
 
 # Close database connection
 dbDisconnect(con)
+
