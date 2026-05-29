@@ -1,5 +1,7 @@
 # Analysis of genetics underlying hybrid effect variation in a Eurasian pig cross
 Analysis carried out by Hai-Bing Xie (xiehb@mail.kiz.ac.cn), Zi-Qin Huang, Li-Gang Wang, and Long-Chao Zhang in consultation with Ya-Ping Zhang and Li-Xian Wang.
+## Citation
+Xie, H.-B., Huang, Z.-Q., Wang, L.-G., Zhang, L.-C., Yan, S.-S., Deng, J.-K., Adeola, A. C., Li, Q.-L., Tao, L., Li, K., Zhao, S.-H., Zeng, Z.-B., Wang, L.-X., & Zhang, Y.-P. (2026). Genetic recombination shapes complex hybrid effects across the pig genome. *National Science Review*, nwag322. https://doi.org/10.1093/nsr/nwag322
 
 # Overview
 
