@@ -3,7 +3,7 @@ Analysis carried out by Hai-Bing Xie (xiehb@mail.kiz.ac.cn), Zi-Qin Huang, Li-Ga
 
 **Citation：**
 
-Xie HB, Huang ZQ, Wang LG, Zhang LC, Yan SS, Deng JK, Adeola AC, Li QL, Tao L, Li K, Zhao SH, Zeng ZB, Wang LX, Zhang YP. Genetic recombination shapes complex hybrid effects across the pig genome. *National Science Review*, 2026, nwag322. https://doi.org/10.1093/nsr/nwag322
+Hai-Bing Xie, Zi-Qin Huang, Li-Gang Wang, Long-Chao Zhang, Shu-Shu Yan, Jia-Kun Deng, Adeniyi C. Adeola, Qing-Long Li, Lin Tao, Kui Li, Shu-Hong Zhao, Zhao-Bang Zeng, Li-Xian Wang, Ya-Ping Zhang. Genetic recombination shapes complex hybrid effects across the pig genome. *National Science Review*, 2026, nwag322. https://doi.org/10.1093/nsr/nwag322
 
 # Overview
 
